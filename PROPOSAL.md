@@ -1,4 +1,4 @@
-Put your final project proposal here.
+
 I want to make a keyboard fighting game where you move with wasd and attack by pressing different keyboard buttons. It will have a lot of movement options and an expansive area to move around in. Stuff like jumping off walls increasing your verticle velocity by kicking of walls and ceilings. Perhaps even power ups that slightly alter how you attack. The zones are going to be linear levels with enemies with set attack patterns. I will need to know how to add images to cinder and how to program enemy Ai that doesn't suck. I want to test out different gameply possibilites not yet explored in the medium and I think this idea could be fruitful.
 A possible timeline could be: Week 1, implement base moveset and a skeleton for the world and enemies. Week 2, Develop world and movement options to interact with said world as well as further develop enemy ai and types. Week 3, add different moveset altarations an refine down movement and enemy AI even more.
 Some stretch goals could be to interact with the terrain in a way that can damage you or your opponets, having an item system where you can pick up things and use them.
