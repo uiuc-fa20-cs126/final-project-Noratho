@@ -4,8 +4,6 @@
 
 #pragma once
 
-
-
 #include <nlohmann/json.hpp>
 
 #include <Box2D/Box2D.h>

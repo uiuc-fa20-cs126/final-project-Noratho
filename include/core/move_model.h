@@ -6,12 +6,17 @@
 
 #include <Box2D/Box2D.h>
 #include <string>
+#include <vector>
 
 namespace antares {
 
 namespace models {
 
-struct HitBox {
+struct AttackHitBoxes {
+
+    std::string name;
+
+    std::vector<b2CircleShape> hit_boxes;
 
 };
 
@@ -19,9 +24,13 @@ class Move {
 
 public:
 
+    //add an interval between attacks think linguini dash attack
+
     std::string move_image_;
 
-    HitBox hit_box_;
+    std::vector<int> attack_intervals_;
+
+    std::vector<AttackHitBoxes> hit_boxes_;
 
 private:
 
