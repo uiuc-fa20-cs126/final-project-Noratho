@@ -24,13 +24,13 @@ class Move {
 
 public:
 
-    //add an interval between attacks think linguini dash attack
-
     std::string move_image_;
 
-    std::vector<int> attack_intervals_;
+    std::vector<int> move_part_intervals_;
 
-    std::vector<AttackHitBoxes> hit_boxes_;
+    int start_up_frames_;
+    int active_frames_;
+    int end_lag_;
 
 private:
 
@@ -41,10 +41,11 @@ class Attack : public Move {
 
 public:
 
+    std::vector<AttackHitBoxes> hit_boxes_;
+
     bool is_hurt_box_;
 
     float damage_;
-
     float knock_back_;
 
 private:
