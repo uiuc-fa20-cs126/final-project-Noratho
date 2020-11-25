@@ -2,6 +2,7 @@
 // Created by Nathaniel Smith on 11/12/20.
 //
 
+#include <cinder/gl/gl.h>
 #include "visualizer/antares_app.h"
 
 namespace antares {
@@ -18,6 +19,8 @@ antares::visualizer::AntaresApp::AntaresApp() {
 }
 
 void antares::visualizer::AntaresApp::draw() {
+    ci::gl::clear(kBackgroundColor);
+
     cinder_map_.Render();
 }
 
@@ -26,7 +29,7 @@ void antares::visualizer::AntaresApp::update() {
 }
 
 void antares::visualizer::AntaresApp::setup() {
-    cinder_map_.map_model_.GenerateWorld();
+    cinder_map_.world_model_.GenerateWorld();
 }
 
 void antares::visualizer::AntaresApp::keyDown(ci::app::KeyEvent event) {

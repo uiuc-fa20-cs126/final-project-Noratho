@@ -31,6 +31,7 @@ namespace visualizer {
         const double kWindowLength = 600;
         const double kWindowHeight = 400;
         const double kMargin = 100;
+        const float kPixelsPerMeterFactor = 50.0f;
 
     private:
 
