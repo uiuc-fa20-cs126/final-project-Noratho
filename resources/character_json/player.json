@@ -1,0 +1,102 @@
+{
+  "character_name": "Bob",
+  "fall_speed_multiplier": 0.6,
+  "fast_fall_speed_multiplier": 0.8,
+  "run_speed": 0.5,
+  "jump_height": 0.5,
+
+  "move_set": {
+    "jump": {
+      "move_image_": "not_here",
+      "move_part_intervals_": [],
+      "start_up_frames_": 3,
+      "active_frames_": 10,
+      "end_lag_": 0,
+      "has_invulnerability_": false,
+      "x_velocity_change_": 0.0,
+      "y_velocity_change_": 0.7
+    },
+    "defense": {
+      "roll_left": {
+        "move_image_": "not_here",
+        "move_part_intervals_": [],
+        "start_up_frames_": 3,
+        "active_frames_": 10,
+        "end_lag_": 4,
+        "has_invulnerability_": true,
+        "x_velocity_change_": -0.5,
+        "y_velocity_change_": 0.0
+      },
+      "roll_right": {
+        "move_image_": "not_here",
+        "move_part_intervals_": [],
+        "start_up_frames_": 3,
+        "active_frames_": 10,
+        "end_lag_": 4,
+        "has_invulnerability_": true,
+        "x_velocity_change_": 0.5,
+        "y_velocity_change_": 0.0
+      },
+      "spot_dodge": {
+        "move_image_": "not_here",
+        "move_part_intervals_": [],
+        "start_up_frames_": 3,
+        "active_frames_": 10,
+        "end_lag_": 5,
+        "has_invulnerability_": true,
+        "x_velocity_change_": 0.0,
+        "y_velocity_change_": 0.7
+      },
+      "air_dodge": {
+        "move_image_": "not_here",
+        "move_part_intervals_": [],
+        "start_up_frames_": 3,
+        "active_frames_": 10,
+        "end_lag_": 4,
+        "has_invulnerability_": true,
+        "x_velocity_change_": 0.0,
+        "y_velocity_change_": 0.0
+      },
+      "shield": {
+        "move_image_": "not_here",
+        "move_part_intervals_": [],
+        "start_up_frames_": 3,
+        "active_frames_": 5,
+        "end_lag_": 3,
+        "has_invulnerability_": true,
+        "x_velocity_change_": 0.0,
+        "y_velocity_change_": 0.0,
+        "shield_hit_box_data_": {
+          "m_radius": 0.5,
+          "x": 0.0,
+          "y": 0.0
+        }
+      }
+    }
+  },
+  "sprite_set": {
+    "idle": "rip",
+    "hit": "rip",
+    "out": "rip",
+    "jump": "rip",
+     "run": "rip",
+    "turn": "rip"
+  },
+  "hurt_boxes_data": [
+    {
+      "m_radius": 0.5,
+      "x": 0.0,
+      "y": 0.0
+    },
+    {
+      "m_radius": 0.5,
+      "x": 0.0,
+      "y": 0.5
+    },
+    {
+      "m_radius": 0.5,
+      "x": 0.0,
+      "y": -0.5
+    }
+  ]
+}
