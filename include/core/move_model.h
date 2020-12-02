@@ -67,7 +67,7 @@ class Attack : public Move {
 public:
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Attack, move_image_, move_part_intervals_,  start_up_frames_,
-                                   active_frames_, end_lag_, hit_boxes_, is_hurt_box_,
+                                   active_frames_, end_lag_, hit_boxes_, is_hurt_box_, is_projectile_,
                                    damage_, knock_back_);
 
     Attack(std::vector<std::string> inputs);
@@ -78,6 +78,8 @@ private:
     std::vector<AttackHitBoxes> hit_boxes_;
 
     bool is_hurt_box_;
+
+    bool is_projectile_;
 
     float damage_;
     float knock_back_;

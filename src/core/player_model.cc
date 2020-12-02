@@ -26,10 +26,15 @@ void Player::GeneratePlayer(const std::string& json_path) {
     }
     file >> json;
     this->character_data_ = json;
+
     std::cout << "test";
 }
 
 Player::Player() {
+
+}
+
+void Player::InitiateMove(Move &move) {
 
 }
 

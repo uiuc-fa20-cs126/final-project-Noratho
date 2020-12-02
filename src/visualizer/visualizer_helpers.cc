@@ -20,7 +20,6 @@ namespace visualizer {
     void DrawPolygon(const b2Body *body, float pixels_per_meter_factor,  const ci::Color8u& color) {
 
         b2Vec2 pos = body->GetPosition();
-        std::cout << pos.x << " " << pos.y << std::endl;
         for (const b2Fixture* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext()) {
 
             b2Shape::Type shape_type = fixture->GetType();

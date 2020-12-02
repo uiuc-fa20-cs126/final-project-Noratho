@@ -80,27 +80,6 @@ private:
 
 };
 
-struct Throws {
-
-public:
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Throws, neutral_throw, forward_throw,
-                                   back_throw, down_throw, up_throw);
-
-private:
-    std::vector<std::string> neutral_throw_input{"l"};
-    std::vector<std::string> forward_throw_inputs{"ld", "dl", "la", "al"};
-    std::vector<std::string> back_throw_inputs{"ld", "dl", "la", "al"};
-    std::vector<std::string> up_throw_inputs{"lw", "wl"};
-    std::vector<std::string> down_throw_inputs{"ls", "sl"};
-
-    Throw neutral_throw = Throw(neutral_throw_input);
-    Throw forward_throw = Throw(forward_throw_inputs);
-    Throw back_throw = Throw(back_throw_inputs);
-    Throw down_throw = Throw(up_throw_inputs);
-    Throw up_throw = Throw(down_throw_inputs);
-
-};
-
 struct Defense {
 
 public:
@@ -128,15 +107,13 @@ struct MoveSet {
 
 public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(MoveSet, jump, defense);
-   // , throws,
   //  grounded_normals, air_attacks, specials
 
 private:
-    std::vector<std::string> jump_input{"shift"};
+    std::vector<std::string> jump_input{"space"};
 
     MobilityMove jump = MobilityMove(jump_input);
     Defense defense;
-    Throws throws;
     GroundedNormals grounded_normals;
     AirAttacks air_attacks;
     Specials specials;
@@ -169,6 +146,8 @@ public:
     CharacterData();
 
 private:
+
+    float health_;
 
     std::string character_name;
 
