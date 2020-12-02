@@ -4,7 +4,6 @@
 #pragma once
 
 #include <nlohmann/json.hpp>
-
 #include <Box2D/Box2D.h>
 #include <cinder/app/KeyEvent.h>
 
@@ -173,18 +172,18 @@ private:
 
     std::string character_name;
 
-    int fall_speed;
-    int fast_fall_speed;
-    int run_speed;
-    int weight;
+    float fall_speed_multiplier;
+    float fast_fall_speed_multiplier;
+    float run_speed;
+    float jump_height;
 
     MoveSet move_set;
 
-    SpriteSet character_set;
+    SpriteSet sprite_set;
+
+    std::vector<b2CircleShapeDataHolder> hurt_boxes_data;
 
     std::vector<b2CircleShape> hurt_boxes;
-
-    //add class template to allow for unique interactions for kits, think cloud limit and resource characters
 
 };
 
@@ -192,17 +191,39 @@ class Player {
 
 public:
 
+    Player();
+
+    void GeneratePlayer(const std::string& json_path);
+
     void InitiateMove(Move& move);
+
+    void ParseInput();
+
+    std::vector<std::string> input_list_;
+    std::map<std::string, int> input_timers_;
 
 private:
 
+    std::string current_sprite_;
+
+    b2Vec2 position_;
+
     int current_lag_;
+
+    int lives_left_;
+    int shield_charge_;
 
     float current_damage_;
 
     float damage_dealt_;
 
     CharacterData character_data_;
+
+    bool is_facing_right_;
+    bool is_in_air_;
+    bool is_shielding_;
+
+
 
 };
 
