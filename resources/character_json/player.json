@@ -13,8 +13,9 @@
       "active_frames_": 10,
       "end_lag_": 0,
       "has_invulnerability_": false,
-      "x_velocity_change_": 0.0,
-      "y_velocity_change_": 0.7
+      "velocity_interval_frames_": [4],
+      "x_velocity_changes_": [0.0, 0.0],
+      "y_velocity_changes_": [0.7, 0.5]
     },
     "defense": {
       "roll_left": {
@@ -24,8 +25,9 @@
         "active_frames_": 10,
         "end_lag_": 4,
         "has_invulnerability_": true,
-        "x_velocity_change_": -0.5,
-        "y_velocity_change_": 0.0
+        "velocity_interval_frames_": [],
+        "x_velocity_changes_": [-0.5],
+        "y_velocity_changes_": [0.0]
       },
       "roll_right": {
         "move_image_": "not_here",
@@ -34,8 +36,9 @@
         "active_frames_": 10,
         "end_lag_": 4,
         "has_invulnerability_": true,
-        "x_velocity_change_": 0.5,
-        "y_velocity_change_": 0.0
+        "velocity_interval_frames_": [],
+        "x_velocity_changes_": [0.5],
+        "y_velocity_changes_": [0.0]
       },
       "spot_dodge": {
         "move_image_": "not_here",
@@ -44,8 +47,9 @@
         "active_frames_": 10,
         "end_lag_": 5,
         "has_invulnerability_": true,
-        "x_velocity_change_": 0.0,
-        "y_velocity_change_": 0.7
+        "velocity_interval_frames_": [],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
       },
       "air_dodge": {
         "move_image_": "not_here",
@@ -54,8 +58,9 @@
         "active_frames_": 10,
         "end_lag_": 4,
         "has_invulnerability_": true,
-        "x_velocity_change_": 0.0,
-        "y_velocity_change_": 0.0
+        "velocity_interval_frames_": [],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
       },
       "shield": {
         "move_image_": "not_here",
@@ -63,9 +68,6 @@
         "start_up_frames_": 3,
         "active_frames_": 5,
         "end_lag_": 3,
-        "has_invulnerability_": true,
-        "x_velocity_change_": 0.0,
-        "y_velocity_change_": 0.0,
         "shield_hit_box_data_": {
           "m_radius": 0.5,
           "x": 0.0,
@@ -91,12 +93,12 @@
     {
       "m_radius": 0.5,
       "x": 0.0,
-      "y": 0.5
+      "y": -0.5
     },
     {
       "m_radius": 0.5,
       "x": 0.0,
-      "y": -0.5
+      "y": -1.0
     }
   ]
 }

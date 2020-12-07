@@ -50,9 +50,9 @@ class Attack : public Move {
 
 public:
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Attack, move_image_, move_part_intervals_,  start_up_frames_,
-                                   active_frames_, end_lag_, hit_boxes_, is_hurt_box_, is_projectile_,
-                                   damage_, knock_back_);
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Attack, move_image_, move_part_intervals_, start_up_frames_,
+                                   active_frames_, end_lag_, hit_boxes_data_, is_hurt_box_, is_projectile_,
+                                   damage_, knock_back_, velocity_interval_frames_, x_velocity_changes_, y_velocity_changes_);
 
     Attack(std::vector<std::string> inputs);
 
@@ -69,7 +69,11 @@ private:
     float damage_;
     float knock_back_;
 
-private:
+    std::vector<int> velocity_interval_frames_;
+
+    std::vector<float> x_velocity_changes_;
+
+    std::vector<float> y_velocity_changes_;
 
 };
 
@@ -77,9 +81,9 @@ class MobilityMove : public Move {
 
 public:
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(MobilityMove, move_image_, move_part_intervals_,  start_up_frames_,
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(MobilityMove, move_image_, move_part_intervals_, start_up_frames_,
                                    active_frames_, end_lag_, has_invulnerability_,
-                                   x_velocity_change_, y_velocity_change_);
+                                   velocity_interval_frames_, x_velocity_changes_, y_velocity_changes_)
 
     MobilityMove(std::vector<std::string> inputs);
 
@@ -89,9 +93,12 @@ private:
 
     bool has_invulnerability_;
 
-    float x_velocity_change_;
+    std::vector<int> velocity_interval_frames_;
 
-    float y_velocity_change_;
+    std::vector<float> x_velocity_changes_;
+
+    std::vector<float> y_velocity_changes_;
+
 };
 
 
