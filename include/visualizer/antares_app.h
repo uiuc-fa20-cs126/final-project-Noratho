@@ -37,7 +37,7 @@ namespace visualizer {
 
         antares::visualizer::CinderMap cinder_map_;
 
-        antares::models::World world_model_;
+        antares::models::World *world_model_;
 
         static const std::string kMapPath;
 
@@ -45,7 +45,13 @@ namespace visualizer {
 
         static const ci::Color8u kBackgroundColor;
 
-        static const std::string kPlayerJsonPath;
+        void RemoveDuplicatesHelper(const std::string& input);
+
+        void UpdateInputTimers();
+
+        static const int kFrameInputDuration;
+
+        int input_hold_;
     };
 
 } //namespace visualizer

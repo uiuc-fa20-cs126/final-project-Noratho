@@ -4,6 +4,7 @@
 
 #include <cinder/gl/gl.h>
 #include "visualizer/antares_app.h"
+#include <algorithm>
 
 namespace antares {
 
@@ -14,8 +15,7 @@ const std::string AntaresApp::kMapPath = "";
 const ci::Color AntaresApp::kTextColor = ci::Color::black();
 const ci::Color8u AntaresApp::kBackgroundColor(255, 246, 148);
 
-const std::string AntaresApp::kPlayerJsonPath =
-        "resources/character_json/player.json";
+const int AntaresApp::kFrameInputDuration = 10;
 
 antares::visualizer::AntaresApp::AntaresApp() {
     ci::app::setWindowSize((int) kWindowLength, (int) kWindowHeight);
@@ -28,23 +28,15 @@ void antares::visualizer::AntaresApp::draw() {
 }
 
 void antares::visualizer::AntaresApp::update() {
-
-    std::vector<std::string> input_remove_list_;
-    for (auto &input : world_model_.player_->input_timers_) {
-        if (input.second == 0) {
-            input_remove_list_.push_back(input.first);
-        }
-        input.second -= 1;
+    if (input_hold_ != 0) {
+        std::cout << input_hold_ << std::endl;
     }
-    for (std::string input : input_remove_list_) {
-        world_model_.player_->input_timers_.erase(input);
+
+    if (input_hold_ == 1) {
+        world_model_->player_->ParseInput();
     }
-    input_remove_list_.clear();
-
-
-    for(auto it = world_model_.player_->input_timers_.cbegin(); it != world_model_.player_->input_timers_.cend(); ++it)
-    {
-        std::cout << it->first << " " << it->second << std::endl;
+    if (input_hold_ > 0) {
+        input_hold_--;
     }
     cinder_map_.UpdateState();
 }
@@ -108,6 +100,40 @@ void antares::visualizer::AntaresApp::keyDown(ci::app::KeyEvent event) {
             break;
     }
 }
+
+void AntaresApp::RemoveDuplicatesHelper(const std::string& input) {
+
+    std::vector<std::string> &input_list = world_model_->player_->input_list_;
+
+    if (std::find(input_list.begin(), input_list.end(), input) != input_list.end()) {
+        auto index = find(input_list.begin(), input_list.end(), input);
+        input_list.erase(index);
+        world_model_->player_->input_list_.emplace_back(input);
+    } else {
+        world_model_->player_->input_list_.emplace_back(input);
+    }
+}
+
+void AntaresApp::UpdateInputTimers() {
+//added remove inputs in input_list
+    auto &player = world_model_->player_ ;
+    std::vector<std::string> input_remove_list_;
+    for (auto &input : player->input_timers_) {
+        if (input.second == 0) {
+            input_remove_list_.push_back(input.first);
+        }
+        input.second -= 1;
+    }
+    for (const std::string& input : input_remove_list_) {
+        player->input_timers_.erase(input);
+        //erase remove idiom
+        player->input_list_.erase(std::remove(player->input_list_.begin(), player->input_list_.end(), input),
+                                  player->input_list_.end());
+    }
+
+    input_remove_list_.clear();
+}
+
 
 } //namespace visualizer
 
