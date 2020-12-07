@@ -12,7 +12,7 @@ namespace models {
 
 
 Move::Move(std::vector<std::string> inputs) {
-    this->possible_inputs_ = std::move(inputs);
+
 }
 
 Move::Move() {
@@ -21,7 +21,7 @@ Move::Move() {
 
 
 Attack::Attack(std::vector<std::string> inputs) : Move(inputs){
-    this->possible_inputs_ = std::move(inputs);
+
 }
 
 Attack::Attack() {
@@ -29,18 +29,10 @@ Attack::Attack() {
 }
 
 MobilityMove::MobilityMove(std::vector<std::string> inputs) : Move(inputs){
-    this->possible_inputs_ = std::move(inputs);
+
 }
 
 MobilityMove::MobilityMove() {
-
-}
-
-Throw::Throw(std::vector<std::string> inputs) : Move(inputs) {
-
-}
-
-Throw::Throw() {
 
 }
 
