@@ -25,20 +25,6 @@ struct b2CircleShapeDataHolder {
     float y;
 };
 
-struct AttackHitBoxes {
-
-public:
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AttackHitBoxes, name, hit_boxes_data);
-
-private:
-    std::string name;
-
-    std::vector<b2CircleShapeDataHolder> hit_boxes_data;
-
-    std::vector<b2CircleShape> hit_boxes;
-
-};
-
 class Move {
 
 public:
@@ -54,8 +40,6 @@ public:
     int start_up_frames_;
     int active_frames_;
     int end_lag_;
-
-    std::vector<std::string> possible_inputs_;
 
 private:
 
@@ -75,7 +59,8 @@ public:
     Attack();
 
 private:
-    std::vector<AttackHitBoxes> hit_boxes_;
+
+    std::vector<b2CircleShapeDataHolder> hit_boxes_data_;
 
     bool is_hurt_box_;
 
@@ -125,26 +110,7 @@ private:
 
     b2CircleShapeDataHolder shield_hit_box_data_;
 
-    b2CircleShape shield_hit_box_;
-
 };
-
-
-class Throw : public Move {
-
-public:
-
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Throw, move_image_, move_part_intervals_,  start_up_frames_,
-                                   active_frames_, end_lag_);
-
-    Throw(std::vector<std::string> inputs);
-
-    Throw();
-
-private:
-
-};
-
 
 } //namespace models
 
