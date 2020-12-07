@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <Box2D/Box2D.h>
 #include <cinder/app/KeyEvent.h>
+#include <tuple>
 
 #include "move_model.h"
 
@@ -16,21 +17,44 @@ namespace models {
 struct AirAttacks {
 
 public:
+
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(AirAttacks, neutral_air, forward_air,
                                    back_air, up_air, down_air);
 
 private:
-    std::vector<std::string> neutral_air_input{"j"};
-    std::vector<std::string> forward_air_inputs{"jd", "dj", "ja", "aj"};
-    std::vector<std::string> back_air_inputs{"jd", "dj", "ja", "aj"};
-    std::vector<std::string> up_air_inputs{"jw", "wj"};
-    std::vector<std::string> down_air_inputs{"js", "sj"};
 
-    Attack neutral_air = Attack(neutral_air_input);
-    Attack forward_air = Attack(forward_air_inputs);
-    Attack back_air = Attack(back_air_inputs);
-    Attack up_air = Attack(up_air_inputs);
-    Attack down_air = Attack(down_air_inputs);
+    Attack neutral_air;
+    Attack forward_air;
+    Attack back_air;
+    Attack up_air;
+    Attack down_air;
+
+public:
+
+    std::map<std::string, Attack> input_map_right = {
+            {"j", neutral_air},
+            {"jd", forward_air},
+            {"ja", back_air},
+            {"jw", up_air},
+            {"js", down_air},
+//            {"dj", forward_air},
+//            {"aj", back_air},
+//            {"wj", up_air},
+//            {"sj", down_air},
+        };
+
+
+    std::map<std::string, Attack> input_map_left = {
+            {"j", neutral_air},
+            {"ja", forward_air},
+            {"jd", back_air},
+            {"jw", up_air},
+            {"js", down_air},
+//            {"aj", forward_air},
+//            {"dj", back_air},
+//            {"wj", up_air},
+//            {"sj", down_air},
+    };
 
 };
 
@@ -38,45 +62,75 @@ struct Specials {
 
 public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Specials, neutral_special, down_special,
-                                   up_special, forward_special);
+                                   up_special, left_special, right_special);
 
 private:
-    std::vector<std::string> neutral_special_input{"k"};
-    std::vector<std::string> forward_special_inputs{"kd", "dk", "ka", "ak"};
-    std::vector<std::string> down_special_inputs{"ks", "sk"};
-    std::vector<std::string> up_special_inputs{"kw", "wk"};
 
-    Attack neutral_special = Attack(neutral_special_input);
-    Attack down_special = Attack(forward_special_inputs);
-    Attack up_special = Attack(down_special_inputs);
-    Attack forward_special = Attack(up_special_inputs);
+    Attack neutral_special;
+    Attack left_special;
+    Attack right_special;
+    Attack down_special;
+    Attack up_special;
+
+public:
+
+    std::map<std::string, Attack> input_map_strong = {
+            {"k", neutral_special},
+            {"kd", right_special},
+            {"ka", left_special},
+            {"ks", down_special},
+            {"kw", up_special},
+//            {"dk", forward_special},
+//            {"ak", forward_special},
+//            {"sk", down_special},
+//            {"wk", up_special},
+    };
 
 };
 
 struct GroundedNormals {
 
 public:
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(GroundedNormals, jab, forward_tilt, down_tilt, up_tilt,
-                                   forward_strong, down_strong, down_strong, up_strong);
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(GroundedNormals, jab, right_tilt, left_tilt, down_tilt, up_tilt,
+                                   right_strong, left_strong, down_strong, down_strong, up_strong);
 
 private:
-    std::vector<std::string> jap_input{"j"};
-    std::vector<std::string> forward_tilt_inputs{"jd", "dj", "ja", "aj"};
-    std::vector<std::string> up_tilt_inputs{"jw", "wj"};
-    std::vector<std::string> down_tilt_inputs{"js", "sj"};
 
-    std::vector<std::string> forward_strong_inputs{"jd", "dj", "ja", "aj"};
-    std::vector<std::string> up_strong_inputs{"jw", "wj"};
-    std::vector<std::string> down_strong_inputs{"js", "sj"};
+    Attack jab;
+    Attack right_tilt;
+    Attack left_tilt;
+    Attack up_tilt;
+    Attack down_tilt;
 
-    Attack jab = Attack(jap_input);
-    Attack forward_tilt = Attack(forward_tilt_inputs);
-    Attack down_tilt = Attack(up_tilt_inputs);
-    Attack up_tilt = Attack(down_tilt_inputs);
+    Attack right_strong;
+    Attack left_strong;
+    Attack up_strong;
+    Attack down_strong;
 
-    Attack forward_strong = Attack(forward_strong_inputs);
-    Attack down_strong = Attack(up_strong_inputs);
-    Attack up_strong = Attack(down_strong_inputs);
+public:
+
+    std::map<std::string, Attack> input_map_tilts = {
+            {"j", jab},
+            {"jd", right_tilt},
+            {"ja", left_tilt},
+            {"jw", up_tilt},
+            {"js", down_tilt},
+//            {"dj", forward_tilt},
+//            {"aj", forward_tilt},
+//            {"wj", up_tilt},
+//            {"sj", down_tilt},
+    };
+
+    std::map<std::string, Attack> input_map_strong = {
+            {"jd", right_strong},
+            {"ja", left_strong},
+            {"jw", up_strong},
+            {"js", down_strong},
+//            {"dj", forward_strong},
+//            {"aj", forward_strong},
+//            {"wj", up_strong},
+//            {"sj", down_strong},
+    };
 
 };
 
@@ -87,19 +141,26 @@ public:
                                    air_dodge);
 
 private:
-    std::vector<std::string> shield_input{"shift"};
-    std::vector<std::string> roll_left_inputs{"ashift", "shifta"};
-    std::vector<std::string> roll_right_inputs{"shiftd", "dshift"};
-    std::vector<std::string> spot_dodge_inputs{"shiftw", "wshift", "dshift", "shiftd"};
-    std::vector<std::string> air_dodge_input{"shift"};
 
-    Shield shield = Shield(shield_input);
+    Shield shield;
 
-    MobilityMove roll_left = MobilityMove(roll_left_inputs);
-    MobilityMove roll_right = MobilityMove(roll_right_inputs);
-    MobilityMove spot_dodge = MobilityMove(spot_dodge_inputs);
-    MobilityMove air_dodge = MobilityMove(air_dodge_input);
+    MobilityMove roll_left;
+    MobilityMove roll_right;
+    MobilityMove spot_dodge;
+    MobilityMove air_dodge;
 
+public:
+
+    std::map<std::string, MobilityMove> input_map = {
+            {"2a", roll_left},
+            {"2d", roll_right},
+            {"2w", spot_dodge},
+            {"2s", spot_dodge},
+//            {"a2", roll_left},
+//            {"d2", roll_right},
+//            {"w2", spot_dodge},
+//            {"s2", spot_dodge},
+    };
 };
 
 
@@ -110,9 +171,8 @@ public:
   //  grounded_normals, air_attacks, specials
 
 private:
-    std::vector<std::string> jump_input{"space"};
 
-    MobilityMove jump = MobilityMove(jump_input);
+    MobilityMove jump;
     Defense defense;
     GroundedNormals grounded_normals;
     AirAttacks air_attacks;
@@ -162,8 +222,6 @@ private:
 
     std::vector<b2CircleShapeDataHolder> hurt_boxes_data;
 
-    std::vector<b2CircleShape> hurt_boxes;
-
 };
 
 class Player {
@@ -205,6 +263,8 @@ private:
 
 
 };
+
+
 
 } //namespace models
 
