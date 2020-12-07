@@ -10,32 +10,11 @@
 #include <cinder/Color.h>
 
 #include "player_model.h"
+#include "map_model.h"
 
 namespace antares {
 
 namespace models {
-
-    class Map {
-
-    public:
-
-        Map();
-
-        Map(std::string json_path);
-
-        std::string map_json_path_;
-
-        void DeserializeJson();
-
-        void GenerateMap(b2World &world, float pixel_per_meter_factor);
-
-    private:
-
-        const double kWindowLength = 600;
-        const double kWindowHeight = 400;
-
-    };
-
 
     class World {
 
@@ -68,8 +47,10 @@ namespace models {
 
         const b2Vec2 kGravity = b2Vec2(0.0f, 30.0f);
 
-        const double kWindowLength = 600;
-        const double kWindowHeight = 400;
+        const float kWindowLength = 600;
+        const float kWindowHeight = 400;
+
+        static const std::string kPlayerJsonPath;
 
 
     };
