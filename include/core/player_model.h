@@ -205,13 +205,27 @@ public:
 
     CharacterData();
 
+    MoveSet& GetMoveSet() {
+        return move_set;
+    };
+
 private:
 
-    float health_;
+    //float health;
 
     std::string character_name;
 
     float fall_speed_multiplier;
+public:
+    float GetFallSpeedMultiplier() const;
+
+    float GetFastFallSpeedMultiplier() const;
+
+    float GetRunSpeed() const;
+
+    float GetJumpHeight() const;
+
+private:
     float fast_fall_speed_multiplier;
     float run_speed;
     float jump_height;
