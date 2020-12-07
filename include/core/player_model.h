@@ -244,11 +244,25 @@ public:
 
     Player();
 
-    void GeneratePlayer(const std::string& json_path);
+    void GeneratePlayer(b2World &world, float pixel_per_meter_factor,
+                        const std::string& json_path, std::vector<float> window_size);
 
-    void InitiateMove(Move& move);
+    void DeserializeJson(const std::string& json_path);
+
+    void CreateBody(b2World &world, float pixel_per_meter_factor, std::vector<float> window_size);
+
+    void InitiateMove(Attack& move);
+
+    void InitiateMove(MobilityMove& move);
+
+    void InitiateMove(Shield& move);
+
+    b2Body *GetPlayerBody() const;
 
     void ParseInput();
+
+    std::tuple<std::string, int> CleanInput(std::vector<std::string> input_string,
+                                            std::map<std::string, int> input_map);
 
     std::vector<std::string> input_list_;
     std::map<std::string, int> input_timers_;
@@ -258,6 +272,10 @@ private:
     std::string current_sprite_;
 
     b2Vec2 position_;
+
+    b2Body* player_body_;
+
+    std::vector<b2CircleShape> hurt_boxes_;
 
     int current_lag_;
 
