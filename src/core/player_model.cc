@@ -255,10 +255,6 @@ const b2Vec2 &Player::GetPosition() const {
     return position_;
 }
 
-int Player::GetCurrentLag() const {
-    return current_lag_;
-}
-
 bool Player::IsFacingRight() const {
     return is_facing_right_;
 }
