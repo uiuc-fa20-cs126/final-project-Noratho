@@ -9,6 +9,8 @@
 #include <tuple>
 
 #include "move_model.h"
+#include "character_data_model.h"
+#include "move_handler.h"
 
 namespace antares {
 
@@ -27,11 +29,7 @@ public:
 
     void CreateBody(b2World &world, float pixel_per_meter_factor, std::vector<float> window_size);
 
-    void InitiateMove(Attack& move);
-
-    void InitiateMove(MobilityMove& move);
-
-    void InitiateMove(Shield& move);
+    void SetUpMaps();
 
     void ParseInput();
 

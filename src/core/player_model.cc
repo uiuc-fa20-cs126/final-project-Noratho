@@ -19,11 +19,79 @@ void Player::GeneratePlayer(b2World &world, float pixel_per_meter_factor,
                             const std::string& json_path, std::vector<float> window_size) {
 
     DeserializeJson(json_path);
+    SetUpMaps();
+    handler_ = new MoveHandler;
     CreateBody(world, pixel_per_meter_factor, std::move(window_size));
 }
 
 
+void Player::SetUpMaps() {
 
+    Defense &defense = this->character_data_.GetMoveSet().GetDefense();
+    AirAttacks &air_attacks = this->character_data_.GetMoveSet().GetAirAttacks();
+    GroundedNormals &grounded_normals = this->character_data_.GetMoveSet().GetGroundedNormals();
+    Specials &specials = this->character_data_.GetMoveSet().GetSpecials();
+
+    //defense map
+    std::map<std::string, MobilityMove> defense_map = {
+            {"2a", defense.GetRollLeft()},
+            {"2d", defense.GetRollRight()},
+            {"2w", defense.GetSpotDodge()},
+            {"2s", defense.GetSpotDodge()},
+    };
+
+    //air attack right map
+    std::map<std::string, Attack> air_attacks_map_right = {
+            {"j", air_attacks.GetNeutralAir()},
+            {"jd", air_attacks.GetForwardAir()},
+            {"ja", air_attacks.GetBackAir()},
+            {"jw", air_attacks.GetUpAir()},
+            {"js", air_attacks.GetDownAir()},
+    };
+
+    //air attack left map
+    std::map<std::string, Attack> air_attacks_map_left = {
+            {"j", air_attacks.GetNeutralAir()},
+            {"jd", air_attacks.GetBackAir()},
+            {"ja", air_attacks.GetForwardAir()},
+            {"jw", air_attacks.GetUpAir()},
+            {"js", air_attacks.GetDownAir()},
+    };
+
+    //grounded normals tilts map
+    std::map<std::string, Attack> grounded_normals_input_map_tilts = {
+            {"j", grounded_normals.GetJab()},
+            {"jd", grounded_normals.GetRightTilt()},
+            {"ja", grounded_normals.GetLeftTilt()},
+            {"jw", grounded_normals.GetUpTilt()},
+            {"js", grounded_normals.GetDownTilt()},
+        };
+
+    //grounded normals strong map
+    std::map<std::string, Attack> grounded_normals_input_map_strong = {
+            {"j", grounded_normals.GetJab()},
+            {"jd", grounded_normals.GetRightStrong()},
+            {"ja", grounded_normals.GetLeftStrong()},
+            {"jw", grounded_normals.GetUpStrong()},
+            {"js", grounded_normals.GetDownStrong()},
+        };
+
+    //specials map
+    std::map<std::string, Attack> specials_input_map = {
+            {"k", specials.GetNeutralSpecial()},
+            {"kd", specials.GetRightSpecial()},
+            {"ka", specials.GetLeftSpecial()},
+            {"ks", specials.GetDownSpecial()},
+            {"kw", specials.GetUpSpecial()},
+        };
+
+    defense.SetInputMap(defense_map);
+    air_attacks.SetInputMapLeft(air_attacks_map_left);
+    air_attacks.SetInputMapRight(air_attacks_map_right);
+    grounded_normals.SetInputMapTilts(grounded_normals_input_map_tilts);
+    grounded_normals.SetInputMapStrong(grounded_normals_input_map_strong);
+    specials.SetInputMap(specials_input_map);
+}
 
 void Player::DeserializeJson(const std::string& json_path) {
     std::ifstream file(json_path);
