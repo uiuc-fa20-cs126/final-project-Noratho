@@ -172,30 +172,62 @@ std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_s
 void Player::ParseInput() {
 
     auto &move_set = this->character_data_.GetMoveSet();
-
     //input is put into standard form of command then direction e.g. jw
     std::tuple<std::string, int> cleaned_input =
             CleanInput(input_list_, input_timers_);
 
     std::string command = std::string(1, (std::get<0>(cleaned_input)[0]));
+    int interval = (std::get<1>(cleaned_input));
+    std::string complete_input = (std::get<0>(cleaned_input));
 
+    //switch statements don't work for strings in c++ without
+    // converting to ascii or using an enum which basically do the same thing in this case
+    if (complete_input == "2") {
+        auto move = character_data_.GetMoveSet().GetDefense().GetShield();
+        handler_->InitiateMove(move);
 
-    if (command == "d") {
-        b2Vec2 run_right = b2Vec2(10 * character_data_.GetRunSpeed(), 0);
+    } else if (complete_input == "d") {
+        b2Vec2 run_right = b2Vec2(10 * character_data_.GetRunSpeed(),
+                                  player_body_->GetLinearVelocity().y);
         player_body_->SetLinearVelocity(run_right);
-    } else if (command == "a") {
-        b2Vec2 run_right = b2Vec2(-10 * character_data_.GetRunSpeed(), 0);
+        if (!this->is_in_air_) {
+            this->is_facing_right_ = true;
+        }
+
+    } else if (complete_input == "a") {
+        b2Vec2 run_right = b2Vec2(-10 * character_data_.GetRunSpeed(),
+                                  player_body_->GetLinearVelocity().y);
         player_body_->SetLinearVelocity(run_right);
+        if (!this->is_in_air_) {
+            this->is_facing_right_ = false;
+        }
+
+    } else if (command == "2") {
+        auto move = move_set.GetDefense().GetInputMap().at(complete_input);
+        handler_->InitiateMove(move);
+
+    } else if (command == "j") {
+        if (this->is_in_air_) {
+            if (this->is_facing_right_) {
+                auto move = move_set.GetAirAttacks().GetInputMapRight().at(complete_input);
+                handler_->InitiateMove(move);
+            } else {
+                auto move = move_set.GetAirAttacks().GetInputMapLeft().at(complete_input);
+                handler_->InitiateMove(move);
+            }
+        } else {
+            if (interval > 3) {
+                auto move = move_set.GetGroundedNormals().GetInputMapTilts().at(complete_input);
+                handler_->InitiateMove(move);
+            } else {
+                auto move = move_set.GetGroundedNormals().GetInputMapStrong().at(complete_input);
+                handler_->InitiateMove(move);
+            }
+        }
+
+    } else if (command == "k") {
+        auto move = move_set.GetSpecials().GetInputMap().at(complete_input);
     }
-
-    //    std::cout << std::get<0>(cleaned_input) << std::endl;
-//    std::cout << input[0];
-//    switch (input[0]) {
-//        case 1:
-//            break;
-//    }
-
-
 }
 
 Player::Player() {
