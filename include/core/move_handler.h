@@ -10,17 +10,41 @@ namespace antares {
 
 namespace models {
 
+    enum MoveType {
+        AttackType,
+        MobilityType,
+        ShieldType,
+    };
+
+
     class MoveHandler {
 
     public:
 
     private:
 
-        Shield current_shield_;
+        b2Body* player_body_;
 
-        Attack current_attack_;
+        bool is_attack_in_progress_;
 
-        MobilityMove current_movement_;
+        int total_start_up_;
+        int current_startup_;
+
+        int total_active_frames_;
+        int current_active_frame_;
+
+        int total_end_lag_;
+        int current_end_lag_;
+
+        int interval_index;
+
+        std::vector<b2Fixture*> fixtures_;
+
+        MoveType type_;
+
+        Attack *attack_;
+        MobilityMove *mobility_;
+        Shield *shield_;
 
 
     };
