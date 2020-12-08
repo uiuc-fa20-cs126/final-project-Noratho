@@ -149,6 +149,7 @@ std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_s
         input = full_input_string.substr(full_input_string.size() - 2);
     }
 
+    //Reverse it if its in the wrong order
     std::string directions = "wasd";
     for (char let : directions) {
         if (input[0] == let) {
