@@ -42,9 +42,20 @@ namespace visualizer {
                 }
 
                 ci::gl::color(color);
-
                 ci::gl::drawSolid(poly_line);
+                ci::gl::color(ci::Color8u(0, 0, 0));
+                ci::gl::draw(poly_line);
+            }
+            if (shape_type == b2Shape::e_circle) {
 
+                b2CircleShape* circle = (b2CircleShape*)fixture->GetShape();
+
+                ci::vec2 center((circle->m_p.x + pos.x) * pixels_per_meter_factor,
+                                (2 * (circle->m_p.y) + pos.y) * pixels_per_meter_factor);
+
+                ci::gl::color( ci::Color( 0, 0, 1 ) );;
+
+                ci::gl::drawSolidCircle(center, 10);
 
             }
         }
