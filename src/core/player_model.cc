@@ -283,26 +283,10 @@ void Player::SetPosition(const b2Vec2 &position) {
     position_ = position;
 }
 
-CharacterData::CharacterData() {
-
+MoveHandler *Player::GetHandler() const {
+    return handler_;
 }
 
-float CharacterData::GetFallSpeedMultiplier() const {
-    return fall_speed_multiplier;
-}
-
-float CharacterData::GetFastFallSpeedMultiplier() const {
-    return fast_fall_speed_multiplier;
-}
-
-float CharacterData::GetRunSpeed() const {
-    return run_speed;
-}
-
-float CharacterData::GetJumpHeight() const {
-    return jump_height;
-}
-
-} //namespace models
+    } //namespace models
 
 } //namespace antares
