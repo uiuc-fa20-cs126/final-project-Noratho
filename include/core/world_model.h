@@ -41,7 +41,6 @@ namespace models {
 
         Player *player_;
 
-
     private:
 
         const float kTimeStep = 1.0f / 60.0f;

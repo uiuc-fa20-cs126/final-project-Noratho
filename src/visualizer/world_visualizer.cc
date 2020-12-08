@@ -29,7 +29,7 @@ namespace visualizer {
         for (const b2Body* body = world_model_.world_.GetBodyList(); body; body = body->GetNext()) {
             DrawPolygon(body, world_model_.kPixelsPerMeterFactor,
                         ci::Color8u(255 - color_differentiator , color_differentiator, 150));
-            color_differentiator = 150;
+            color_differentiator = 75;
         }
     }
 
