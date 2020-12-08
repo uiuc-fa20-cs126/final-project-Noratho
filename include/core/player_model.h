@@ -55,6 +55,8 @@ public:
 
     const CharacterData &GetCharacterData() const;
 
+    MoveHandler *GetHandler() const;
+
     void SetIsFacingRight(bool isFacingRight);
 
     void SetIsInAir(bool isInAir);
@@ -72,16 +74,10 @@ private:
     b2Vec2 position_;
 
     b2Body* player_body_;
-
-    std::vector<b2CircleShape> hurt_boxes_;
-
-    int current_lag_;
+    MoveHandler *handler_;
 
     int lives_left_;
-    int shield_charge_;
-
     float current_damage_;
-
     float damage_dealt_;
 
     CharacterData character_data_;
@@ -89,8 +85,7 @@ private:
     bool is_facing_right_;
     bool is_in_air_;
     bool is_shielding_;
-
-
+    bool is_invulnerable;
 
 };
 

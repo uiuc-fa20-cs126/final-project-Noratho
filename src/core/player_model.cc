@@ -100,7 +100,6 @@ void Player::DeserializeJson(const std::string& json_path) {
     this->character_data_ = json;
 }
 
-
 void Player::CreateBody(b2World &world, float pixel_per_meter_factor, std::vector<float> window_size) {
 
     float meter_per_pixel_factor = (1.0f / pixel_per_meter_factor);
@@ -108,23 +107,31 @@ void Player::CreateBody(b2World &world, float pixel_per_meter_factor, std::vecto
     float window_length = window_size[0];
     float window_height = window_size[1];
 
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(window_length / 2.0f * meter_per_pixel_factor,
-                         window_height / 2.0f * meter_per_pixel_factor);
+    b2BodyDef body_def;
+    body_def.type = b2_dynamicBody;
+    body_def.position.Set(window_length / 2.0f * meter_per_pixel_factor,
+                          window_height / 2.0f * meter_per_pixel_factor);
 
-    b2Body* body = world.CreateBody(&bodyDef);
+    b2Body* body = world.CreateBody(&body_def);
     this->player_body_ = body;
+    this->handler_->SetPlayerBody(body);
 
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(10.0f * meter_per_pixel_factor, 10.0f * meter_per_pixel_factor);
+    for (const auto& hurt_box : character_data_.GetHurtBoxesData()) {
+        b2Vec2 pos(hurt_box.x  * meter_per_pixel_factor,
+                   hurt_box.y  * meter_per_pixel_factor);
 
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 0.5;
-    body->CreateFixture(&fixtureDef);
+        b2CircleShape circle;
+        circle.m_p = pos;
+        circle.m_radius = hurt_box.m_radius * meter_per_pixel_factor;
+
+        b2FixtureDef fixture_circle_def;
+        fixture_circle_def.shape = &circle;
+        fixture_circle_def.density = 1.0f;
+        fixture_circle_def.friction = 0.3f;
+        fixture_circle_def.restitution = 0.0f;
+
+        body->CreateFixture(&fixture_circle_def);
+    }
 }
 
 std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_string,
