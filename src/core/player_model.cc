@@ -143,6 +143,53 @@ b2Body *Player::GetPlayerBody() const {
     return player_body_;
 }
 
+const b2Vec2 &Player::GetPosition() const {
+    return position_;
+}
+
+int Player::GetCurrentLag() const {
+    return current_lag_;
+}
+
+bool Player::IsFacingRight() const {
+    return is_facing_right_;
+}
+
+bool Player::IsInAir() const {
+    return is_in_air_;
+}
+
+bool Player::IsShielding() const {
+    return is_shielding_;
+}
+
+const CharacterData &Player::GetCharacterData() const {
+    return character_data_;
+}
+
+bool Player::IsInvulnerable() const {
+    return is_invulnerable;
+}
+
+void Player::SetIsFacingRight(bool isFacingRight) {
+    is_facing_right_ = isFacingRight;
+}
+
+void Player::SetIsInAir(bool isInAir) {
+    is_in_air_ = isInAir;
+}
+
+void Player::SetIsShielding(bool isShielding) {
+    is_shielding_ = isShielding;
+}
+
+void Player::SetIsInvulnerable(bool isInvulnerable) {
+    is_invulnerable = isInvulnerable;
+}
+
+void Player::SetPosition(const b2Vec2 &position) {
+    position_ = position;
+}
 
 CharacterData::CharacterData() {
 

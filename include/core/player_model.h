@@ -257,8 +257,6 @@ public:
 
     void InitiateMove(Shield& move);
 
-    b2Body *GetPlayerBody() const;
-
     void ParseInput();
 
     std::tuple<std::string, int> CleanInput(std::vector<std::string> input_string,
@@ -266,6 +264,32 @@ public:
 
     std::vector<std::string> input_list_;
     std::map<std::string, int> input_timers_;
+
+    b2Body *GetPlayerBody() const;
+
+    const b2Vec2 &GetPosition() const;
+
+    int GetCurrentLag() const;
+
+    bool IsFacingRight() const;
+
+    bool IsInAir() const;
+
+    bool IsShielding() const;
+
+    bool IsInvulnerable() const;
+
+    const CharacterData &GetCharacterData() const;
+
+    void SetIsFacingRight(bool isFacingRight);
+
+    void SetIsInAir(bool isInAir);
+
+    void SetIsShielding(bool isShielding);
+
+    void SetIsInvulnerable(bool isInvulnerable);
+
+    void SetPosition(const b2Vec2 &position);
 
 private:
 
