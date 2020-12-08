@@ -235,18 +235,6 @@ Player::Player() {
 
 }
 
-void Player::InitiateMove(Attack &move) {
-
-}
-
-void Player::InitiateMove(MobilityMove &move) {
-
-}
-
-void Player::InitiateMove(Shield &move) {
-
-}
-
 b2Body *Player::GetPlayerBody() const {
     return player_body_;
 }

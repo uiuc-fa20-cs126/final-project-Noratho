@@ -21,6 +21,26 @@ namespace models {
 
     public:
 
+        MoveHandler();
+
+        void InitiateMove(Attack& move);
+
+        void InitiateMove(MobilityMove& move);
+
+        void InitiateMove(Shield& move);
+
+        void NextFrame();
+
+        bool IsAttackInProgress() const;
+
+        void SetIsAttackInProgress(bool isAttackInProgress);
+
+        MoveType GetType() const;
+
+        void SetType(MoveType type);
+
+        void SetPlayerBody(b2Body *playerBody);
+
     private:
 
         b2Body* player_body_;
