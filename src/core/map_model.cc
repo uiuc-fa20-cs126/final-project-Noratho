@@ -9,7 +9,6 @@ namespace antares {
 
 namespace models {
 
-
 Map::Map() {
 
 }

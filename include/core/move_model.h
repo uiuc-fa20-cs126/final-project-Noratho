@@ -58,6 +58,22 @@ public:
 
     Attack();
 
+    const std::vector<b2CircleShapeDataHolder> &GetHitBoxesData() const;
+
+    bool IsHurtBox() const;
+
+    bool IsProjectile() const;
+
+    float GetDamage() const;
+
+    float GetKnockBack() const;
+
+    const std::vector<int> &GetVelocityIntervalFrames() const;
+
+    const std::vector<float> &GetXVelocityChanges() const;
+
+    const std::vector<float> &GetYVelocityChanges() const;
+
 private:
 
     std::vector<b2CircleShapeDataHolder> hit_boxes_data_;
@@ -89,6 +105,14 @@ public:
 
     MobilityMove();
 
+    bool HasInvulnerability() const;
+
+    const std::vector<int> &GetVelocityIntervalFrames() const;
+
+    const std::vector<float> &GetXVelocityChanges() const;
+
+    const std::vector<float> &GetYVelocityChanges() const;
+
 private:
 
     bool has_invulnerability_;
@@ -112,6 +136,8 @@ public:
     Shield(std::vector<std::string> inputs);
 
     Shield();
+
+    const b2CircleShapeDataHolder &GetShieldHitBoxData() const;
 
 private:
 

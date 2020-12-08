@@ -22,40 +22,53 @@ namespace models {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(AirAttacks, neutral_air, forward_air,
                 back_air, up_air, down_air);
 
+        const Attack &GetNeutralAir() const {
+            return neutral_air;
+        }
+
+        const Attack &GetForwardAir() const {
+            return forward_air;
+        }
+
+        const Attack &GetBackAir() const {
+            return back_air;
+        }
+
+        const Attack &GetUpAir() const {
+            return up_air;
+        }
+
+        const Attack &GetDownAir() const {
+            return down_air;
+        }
+
+        const std::map<std::string, Attack> &GetInputMapRight() const {
+            return input_map_right;
+        }
+
+        const std::map<std::string, Attack> &GetInputMapLeft() const {
+            return input_map_left;
+        }
+
+        void SetInputMapRight(const std::map<std::string, Attack> &inputMapRight) {
+            input_map_right = inputMapRight;
+        }
+
+        void SetInputMapLeft(const std::map<std::string, Attack> &inputMapLeft) {
+            input_map_left = inputMapLeft;
+        }
+
+
     private:
+
+        std::map<std::string, Attack> input_map_right;
+        std::map<std::string, Attack> input_map_left;
 
         Attack neutral_air;
         Attack forward_air;
         Attack back_air;
         Attack up_air;
         Attack down_air;
-
-    public:
-
-        std::map<std::string, Attack> input_map_right = {
-                {"j", neutral_air},
-                {"jd", forward_air},
-                {"ja", back_air},
-                {"jw", up_air},
-                {"js", down_air},
-//            {"dj", forward_air},
-//            {"aj", back_air},
-//            {"wj", up_air},
-//            {"sj", down_air},
-        };
-
-
-        std::map<std::string, Attack> input_map_left = {
-                {"j", neutral_air},
-                {"ja", forward_air},
-                {"jd", back_air},
-                {"jw", up_air},
-                {"js", down_air},
-//            {"aj", forward_air},
-//            {"dj", back_air},
-//            {"wj", up_air},
-//            {"sj", down_air},
-        };
 
     };
 
@@ -65,27 +78,43 @@ namespace models {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(Specials, neutral_special, down_special,
                 up_special, left_special, right_special);
 
+        const Attack &GetNeutralSpecial() const {
+            return neutral_special;
+        }
+
+        const Attack &GetLeftSpecial() const {
+            return left_special;
+        }
+
+        const Attack &GetRightSpecial() const {
+            return right_special;
+        }
+
+        const Attack &GetDownSpecial() const {
+            return down_special;
+        }
+
+        const Attack &GetUpSpecial() const {
+            return up_special;
+        }
+
+        const std::map<std::string, Attack> &GetInputMap() const {
+            return input_map;
+        }
+
+        void SetInputMap(const std::map<std::string, Attack> &inputMap) {
+            input_map = inputMap;
+        }
+
+
     private:
+        std::map<std::string, Attack> input_map;
 
         Attack neutral_special;
         Attack left_special;
         Attack right_special;
         Attack down_special;
         Attack up_special;
-
-    public:
-
-        std::map<std::string, Attack> input_map_strong = {
-                {"k", neutral_special},
-                {"kd", right_special},
-                {"ka", left_special},
-                {"ks", down_special},
-                {"kw", up_special},
-//            {"dk", forward_special},
-//            {"ak", forward_special},
-//            {"sk", down_special},
-//            {"wk", up_special},
-        };
 
     };
 
@@ -95,7 +124,62 @@ namespace models {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(GroundedNormals, jab, right_tilt, left_tilt, down_tilt, up_tilt,
                 right_strong, left_strong, down_strong, down_strong, up_strong);
 
+        const Attack &GetJab() const {
+            return jab;
+        }
+
+        const Attack &GetRightTilt() const {
+            return right_tilt;
+        }
+
+        const Attack &GetLeftTilt() const {
+            return left_tilt;
+        }
+
+        const Attack &GetUpTilt() const {
+            return up_tilt;
+        }
+
+        const Attack &GetDownTilt() const {
+            return down_tilt;
+        }
+
+        const Attack &GetRightStrong() const {
+            return right_strong;
+        }
+
+        const Attack &GetLeftStrong() const {
+            return left_strong;
+        }
+
+        const Attack &GetUpStrong() const {
+            return up_strong;
+        }
+
+        const Attack &GetDownStrong() const {
+            return down_strong;
+        }
+
+        const std::map<std::string, Attack> &GetInputMapTilts() const {
+            return input_map_tilts;
+        }
+
+        const std::map<std::string, Attack> &GetInputMapStrong() const {
+            return input_map_strong;
+        }
+
+        void SetInputMapTilts(const std::map<std::string, Attack> &inputMapTilts) {
+            input_map_tilts = inputMapTilts;
+        }
+
+        void SetInputMapStrong(const std::map<std::string, Attack> &inputMapStrong) {
+            input_map_strong = inputMapStrong;
+        }
+
     private:
+
+        std::map<std::string, Attack> input_map_tilts;
+        std::map<std::string, Attack> input_map_strong;
 
         Attack jab;
         Attack right_tilt;
@@ -108,31 +192,6 @@ namespace models {
         Attack up_strong;
         Attack down_strong;
 
-    public:
-
-        std::map<std::string, Attack> input_map_tilts = {
-                {"j", jab},
-                {"jd", right_tilt},
-                {"ja", left_tilt},
-                {"jw", up_tilt},
-                {"js", down_tilt},
-//            {"dj", forward_tilt},
-//            {"aj", forward_tilt},
-//            {"wj", up_tilt},
-//            {"sj", down_tilt},
-        };
-
-        std::map<std::string, Attack> input_map_strong = {
-                {"jd", right_strong},
-                {"ja", left_strong},
-                {"jw", up_strong},
-                {"js", down_strong},
-//            {"dj", forward_strong},
-//            {"aj", forward_strong},
-//            {"wj", up_strong},
-//            {"sj", down_strong},
-        };
-
     };
 
     struct Defense {
@@ -140,8 +199,6 @@ namespace models {
     public:
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(Defense, shield, roll_left, roll_right, spot_dodge,
                 air_dodge);
-
-        std::map<std::string, MobilityMove> input_map;
 
         const Shield &GetShield() const {
             return shield;
@@ -163,11 +220,18 @@ namespace models {
             return air_dodge;
         }
 
+        const std::map<std::string, MobilityMove> &GetInputMap() const {
+            return input_map;
+        }
+
         void SetInputMap(const std::map<std::string, MobilityMove> &inputMap) {
             input_map = inputMap;
         }
 
     private:
+
+        std::map<std::string, MobilityMove> input_map;
+
         Shield shield;
 
         MobilityMove roll_left;
@@ -238,9 +302,7 @@ namespace models {
 
         CharacterData();
 
-        MoveSet& GetMoveSet() {
-            return move_set;
-        };
+        MoveSet& GetMoveSet();
 
         float GetFallSpeedMultiplier() const;
 
@@ -249,6 +311,8 @@ namespace models {
         float GetRunSpeed() const;
 
         float GetJumpHeight() const;
+
+        const std::vector<b2CircleShapeDataHolder> &GetHurtBoxesData() const;
 
     private:
 
@@ -267,6 +331,7 @@ namespace models {
         SpriteSet sprite_set;
 
         std::vector<b2CircleShapeDataHolder> hurt_boxes_data;
+
 
     };
 
