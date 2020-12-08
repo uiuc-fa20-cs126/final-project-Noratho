@@ -43,8 +43,6 @@ public:
 
     const b2Vec2 &GetPosition() const;
 
-    int GetCurrentLag() const;
-
     bool IsFacingRight() const;
 
     bool IsInAir() const;
