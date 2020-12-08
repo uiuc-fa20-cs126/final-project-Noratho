@@ -39,11 +39,15 @@ void Map::GenerateMap(b2World &world, float pixel_per_meter_factor, std::vector<
 
     b2BodyDef ground_body_def;
     ground_body_def.position.Set(window_length / 2.0f * meter_per_pixel_factor,
-                                     (window_height - 10) * meter_per_pixel_factor);
+                                     (window_height - kGroundHeight) * meter_per_pixel_factor);
     b2PolygonShape ground_box;
-    ground_box.SetAsBox((window_length/2) * meter_per_pixel_factor, 10.0f * meter_per_pixel_factor);
+    ground_box.SetAsBox((window_length/2) * meter_per_pixel_factor, kGroundHeight * meter_per_pixel_factor);
     b2Body* ground_body = world.CreateBody(&ground_body_def);
     ground_body->CreateFixture(&ground_box, 0.0f);
+}
+
+float Map::GetKGroundHeight() const {
+    return kGroundHeight;
 }
 
 

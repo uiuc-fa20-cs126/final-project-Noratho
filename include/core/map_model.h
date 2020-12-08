@@ -26,7 +26,11 @@ namespace models {
 
         void GenerateMap(b2World &world, float pixel_per_meter_factor, std::vector<float> window_size);
 
+        float GetKGroundHeight() const;
+
     private:
+
+        const float kGroundHeight = 10.0f;
 
     };
 
