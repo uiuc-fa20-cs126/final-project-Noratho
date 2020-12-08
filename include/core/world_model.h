@@ -29,6 +29,10 @@ namespace models {
 
         void UpdateState();
 
+        void UpdatePlayer();
+
+        void UpdateAirStatus();
+
         b2World world_ = b2World(kGravity);
 
         const float kPixelsPerMeterFactor = 50.0f;

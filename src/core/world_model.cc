@@ -28,6 +28,7 @@ World::World(Map *map, Player *player) {
 
 void World::UpdateState() {
     world_.Step(kTimeStep, kVelocityIterations, kPositionIterations);
+    UpdatePlayer();
 }
 
 void World::GenerateWorld() {
@@ -36,7 +37,24 @@ void World::GenerateWorld() {
     world_.SetGravity(kGravity);
     map_->GenerateMap(world_, kPixelsPerMeterFactor, window_size);
     player_->GeneratePlayer(world_, kPixelsPerMeterFactor, kPlayerJsonPath, window_size);
-    std::cout << "good";
+}
+
+void World::UpdateAirStatus() {
+    float altitude = player_->GetPosition().y * kPixelsPerMeterFactor;
+    float altitude2 = player_->GetPosition().x * kPixelsPerMeterFactor;
+    float height = map_->GetKGroundHeight();
+
+    if (altitude < kWindowHeight - height - 21.0f) {
+        player_->SetIsInAir(true);
+    } else {
+        player_->SetIsInAir(false);
+    }
+
+}
+
+void World::UpdatePlayer() {
+    player_->SetPosition(player_->GetPlayerBody()->GetPosition());
+    UpdateAirStatus();
 }
 
 
