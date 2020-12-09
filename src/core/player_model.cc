@@ -254,6 +254,7 @@ void Player::ParseInput() {
 
     } else if (command == "k") {
         auto move = move_set.GetSpecials().GetInputMap().at(complete_input);
+        handler_->InitiateMove(move);
     }
 }
 

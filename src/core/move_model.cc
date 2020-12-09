@@ -28,7 +28,7 @@ Attack::Attack() {
 
 }
 
-const std::vector<b2CircleShapeDataHolder> &Attack::GetHitBoxesData() const {
+const std::vector<std::vector<b2CircleShapeDataHolder>> &Attack::GetHitBoxesData() const {
     return hit_boxes_data_;
 }
 

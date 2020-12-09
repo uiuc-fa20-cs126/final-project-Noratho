@@ -65,7 +65,7 @@ void MoveHandler::GenerateFixtures(Attack &attack) {
 
     float meter_per_pixel_factor = (1.0f / kPixelPerMeterFactor);
 
-   for (auto data : attack.GetHitBoxesData()) {
+   for (auto data : attack.GetHitBoxesData()[move_part_interval_index_]) {
        b2Vec2 pos(data.x  * meter_per_pixel_factor,
                   data.y  * meter_per_pixel_factor);
 

@@ -61,7 +61,7 @@ public:
 
     Attack();
 
-    const std::vector<b2CircleShapeDataHolder> &GetHitBoxesData() const;
+    const std::vector<std::vector<b2CircleShapeDataHolder>> &GetHitBoxesData() const;
 
     bool IsHurtBox() const;
 
@@ -79,7 +79,7 @@ public:
 
 private:
 
-    std::vector<b2CircleShapeDataHolder> hit_boxes_data_;
+    std::vector<std::vector<b2CircleShapeDataHolder>> hit_boxes_data_;
 
     bool is_hurt_box_;
 
