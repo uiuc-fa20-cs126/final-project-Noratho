@@ -14,7 +14,6 @@ MoveHandler::MoveHandler() {
 }
 
 void MoveHandler::InitiateMove(Attack &attack) {
-    is_attack_in_progress_ = true;
     type_ = MoveType::AttackType;
     attack_ = attack;
 
@@ -22,15 +21,10 @@ void MoveHandler::InitiateMove(Attack &attack) {
     total_active_frames_ = attack.active_frames_;
     total_end_lag_ = attack.end_lag_;
 
-    current_startup_ = 0;
-    current_active_frame_ = 0;
-    current_end_lag_ = 0;
-    move_part_interval_index_ = 0;
-    velocity_interval_index_ = 0;
+    ResetHandler();
 }
 
 void MoveHandler::InitiateMove(MobilityMove &mobility) {
-    is_attack_in_progress_ = true;
     type_ = MoveType::MobilityType;
     mobility_ = mobility;
 
@@ -38,15 +32,10 @@ void MoveHandler::InitiateMove(MobilityMove &mobility) {
     total_active_frames_ = mobility.active_frames_;
     total_end_lag_ = mobility.end_lag_;
 
-    current_startup_ = 0;
-    current_active_frame_ = 0;
-    current_end_lag_ = 0;
-    move_part_interval_index_ = 0;
-    velocity_interval_index_ = 0;
+    ResetHandler();
 }
 
 void MoveHandler::InitiateMove(Shield &shield) {
-    is_attack_in_progress_ = true;
     type_ = MoveType::ShieldType;
     shield_ = shield;
 
@@ -54,17 +43,23 @@ void MoveHandler::InitiateMove(Shield &shield) {
     total_active_frames_ = shield.active_frames_;
     total_end_lag_ = shield.end_lag_;
 
+    ResetHandler();
+}
+
+void MoveHandler::ResetHandler() {
+    is_move_in_progress_ = true;
     current_startup_ = 0;
     current_active_frame_ = 0;
     current_end_lag_ = 0;
     move_part_interval_index_ = 0;
+    velocity_interval_index_ = 0;
 }
-
 
 void MoveHandler::GenerateFixtures(Attack &attack) {
 
     float meter_per_pixel_factor = (1.0f / kPixelPerMeterFactor);
 
+   //iterate through each hitbox
    for (auto data : attack.GetHitBoxesData()[move_part_interval_index_]) {
        b2Vec2 pos(data.x  * meter_per_pixel_factor,
                   data.y  * meter_per_pixel_factor);
@@ -85,7 +80,7 @@ void MoveHandler::GenerateFixtures(Attack &attack) {
        rgb->push_back(data.b);
        fixture_circle_def.userData = rgb;
 
-       //Set Collision filter
+       //Set Collision filter to stop from colliding with player and ground
        fixture_circle_def.filter.maskBits = 0x0000;
 
        player_body_->CreateFixture(&fixture_circle_def);
@@ -98,8 +93,9 @@ void MoveHandler::GenerateFixtures(Attack &attack) {
 void MoveHandler::VelocityChange(Attack &attack) {
 
     if (attack.GetVelocityIntervalFrames().size() > velocity_interval_index_) {
+        //check if the frame is the next interval
         if (current_active_frame_ ==
-            attack.GetVelocityIntervalFrames()[velocity_interval_index_]) {
+        attack.GetVelocityIntervalFrames()[velocity_interval_index_]) {
 
             b2Vec2 velocity(attack.GetXVelocityChanges()[velocity_interval_index_],
                             attack.GetYVelocityChanges()[velocity_interval_index_]);
@@ -113,8 +109,9 @@ void MoveHandler::VelocityChange(MobilityMove &mobility) {
 
     ChangePlayerColor(1, 1, 1);
     if (mobility.GetVelocityIntervalFrames().size() > velocity_interval_index_) {
+        //check if the frame is the next interval
         if (current_active_frame_ ==
-            mobility.GetVelocityIntervalFrames()[velocity_interval_index_]) {
+        mobility.GetVelocityIntervalFrames()[velocity_interval_index_]) {
 
             b2Vec2 velocity(mobility.GetXVelocityChanges()[velocity_interval_index_],
                             mobility.GetYVelocityChanges()[velocity_interval_index_]);
@@ -148,7 +145,7 @@ void MoveHandler::GenerateFixtures(Shield &shield) {
     rgb->push_back(data.b);
     fixture_circle_def.userData = rgb;
 
-    //Set Collision filter
+    //Set Collision filter to stop from colliding with player and ground
     fixture_circle_def.filter.maskBits = 0x0000;
 
     player_body_->CreateFixture(&fixture_circle_def);
@@ -157,9 +154,11 @@ void MoveHandler::GenerateFixtures(Shield &shield) {
 
 void MoveHandler::NextFrame() {
 
+    //Start up frames
     if (current_startup_ != total_start_up_) {
         current_startup_++;
 
+    //Active frames
     } else if(current_active_frame_ != total_active_frames_) {
         if (type_ == MoveType::AttackType) {
             Attack attack = attack_;
@@ -193,14 +192,17 @@ void MoveHandler::NextFrame() {
         }
         current_active_frame_++;
 
+    //End lag frames
     } else if (current_end_lag_ != total_end_lag_) {
         is_shielding_ = false;
         is_invulnerable_ = false;
         current_end_lag_++;
 
+    //Final clean up.
     } else {
         RemoveAllFixtures();
-        is_attack_in_progress_ = false;
+        is_move_in_progress_ = false;
+
         b2Vec2 no_velocity(0, 0);
         player_body_->SetLinearVelocity(no_velocity);
 
@@ -215,6 +217,7 @@ void MoveHandler::ChangePlayerColor(int r, int g, int b) {
     rgb->push_back(g);
     rgb->push_back(b);
 
+    //Add the data to the user data for a fixture
     for (b2Fixture *fixture = player_body_->GetFixtureList();
          fixture; fixture = fixture->GetNext()) {
         fixture->SetUserData(rgb);
@@ -229,7 +232,7 @@ void MoveHandler::RemoveAllFixtures() {
 }
 
 bool MoveHandler::IsAttackInProgress() const {
-    return is_attack_in_progress_;
+    return is_move_in_progress_;
 }
 
 MoveType MoveHandler::GetType() const {
@@ -247,7 +250,6 @@ bool MoveHandler::IsInvulnerable() const {
 bool MoveHandler::IsShielding() const {
     return is_shielding_;
 }
-
 
 } //namespace models
 
