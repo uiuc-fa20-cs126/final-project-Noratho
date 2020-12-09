@@ -44,19 +44,24 @@ namespace models {
 
         bool IsAttackInProgress() const;
 
-        void SetIsAttackInProgress(bool isAttackInProgress);
-
         MoveType GetType() const;
-
-        void SetType(MoveType type);
 
         void SetPlayerBody(b2Body *playerBody);
 
+        bool IsInvulnerable() const;
+
+        bool IsShielding() const;
+
+
     private:
+
+        const float kPixelPerMeterFactor = 50;
 
         b2Body* player_body_;
 
-        bool is_attack_in_progress_;
+        bool is_attack_in_progress_ = false;
+        bool is_invulnerable_;
+        bool is_shielding_;
 
         int total_start_up_;
         int current_startup_;
@@ -67,15 +72,16 @@ namespace models {
         int total_end_lag_;
         int current_end_lag_;
 
-        int interval_index;
+        int move_part_interval_index_;
+        int velocity_interval_index_;
 
         std::vector<b2Fixture*> fixtures_;
 
         MoveType type_;
 
-        Attack *attack_;
-        MobilityMove *mobility_;
-        Shield *shield_;
+        Attack attack_;
+        MobilityMove mobility_;
+        Shield shield_;
 
 
     };

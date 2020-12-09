@@ -157,7 +157,6 @@ void MoveHandler::GenerateFixtures(Shield &shield) {
 
 void MoveHandler::NextFrame() {
 
-
     if (current_startup_ != total_start_up_) {
         current_startup_++;
         return;
@@ -206,21 +205,22 @@ bool MoveHandler::IsAttackInProgress() const {
     return is_attack_in_progress_;
 }
 
-void MoveHandler::SetIsAttackInProgress(bool isAttackInProgress) {
-    is_attack_in_progress_ = isAttackInProgress;
-}
-
 MoveType MoveHandler::GetType() const {
     return type_;
-}
-
-void MoveHandler::SetType(MoveType type) {
-    type_ = type;
 }
 
 void MoveHandler::SetPlayerBody(b2Body *playerBody) {
     player_body_ = playerBody;
 }
+
+bool MoveHandler::IsInvulnerable() const {
+    return is_invulnerable_;
+}
+
+bool MoveHandler::IsShielding() const {
+    return is_shielding_;
+}
+
 
 } //namespace models
 
