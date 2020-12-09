@@ -23,7 +23,13 @@ namespace models {
 
         MoveHandler();
 
-        void InitiateMove(Attack& move);
+        void InitiateMove(Attack& attack);
+
+        void InitiateMove(MobilityMove& mobility);
+
+        void InitiateMove(Shield& shield);
+
+        void GenerateFixtures(Attack& attack);
 
         void InitiateMove(MobilityMove& move);
 

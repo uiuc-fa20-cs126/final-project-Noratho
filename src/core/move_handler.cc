@@ -13,49 +13,51 @@ MoveHandler::MoveHandler() {
 
 }
 
-void MoveHandler::InitiateMove(Attack &move) {
+void MoveHandler::InitiateMove(Attack &attack) {
     is_attack_in_progress_ = true;
     type_ = MoveType::AttackType;
-    attack_ = &move;
+    attack_ = attack;
 
-    total_start_up_ = move.start_up_frames_;
-    total_active_frames_ = move.active_frames_;
-    total_end_lag_ = move.end_lag_;
+    total_start_up_ = attack.start_up_frames_;
+    total_active_frames_ = attack.active_frames_;
+    total_end_lag_ = attack.end_lag_;
 
     current_startup_ = 0;
     current_active_frame_ = 0;
     current_end_lag_ = 0;
-    interval_index = 0;
+    move_part_interval_index_ = 0;
+    velocity_interval_index_ = 0;
 }
 
-void MoveHandler::InitiateMove(MobilityMove &move) {
+void MoveHandler::InitiateMove(MobilityMove &mobility) {
     is_attack_in_progress_ = true;
     type_ = MoveType::MobilityType;
-    mobility_ = &move;
+    mobility_ = mobility;
 
-    total_start_up_ = move.start_up_frames_;
-    total_active_frames_ = move.active_frames_;
-    total_end_lag_ = move.end_lag_;
+    total_start_up_ = mobility.start_up_frames_;
+    total_active_frames_ = mobility.active_frames_;
+    total_end_lag_ = mobility.end_lag_;
 
     current_startup_ = 0;
     current_active_frame_ = 0;
     current_end_lag_ = 0;
-    interval_index = 0;
+    move_part_interval_index_ = 0;
+    velocity_interval_index_ = 0;
 }
 
-void MoveHandler::InitiateMove(Shield &move) {
+void MoveHandler::InitiateMove(Shield &shield) {
     is_attack_in_progress_ = true;
     type_ = MoveType::ShieldType;
-    shield_ = &move;
+    shield_ = shield;
 
-    total_start_up_ = move.start_up_frames_;
-    total_active_frames_ = move.active_frames_;
-    total_end_lag_ = move.end_lag_;
+    total_start_up_ = shield.start_up_frames_;
+    total_active_frames_ = shield.active_frames_;
+    total_end_lag_ = shield.end_lag_;
 
     current_startup_ = 0;
     current_active_frame_ = 0;
     current_end_lag_ = 0;
-    interval_index = 0;
+    move_part_interval_index_ = 0;
 }
 
 void MoveHandler::NextFrame() {
