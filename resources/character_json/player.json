@@ -3,76 +3,351 @@
   "fall_speed_multiplier": 0.6,
   "fast_fall_speed_multiplier": 0.8,
   "run_speed": 0.5,
-  "jump_height": 0.5,
+  "jump_height": 400.0,
 
   "move_set": {
     "jump": {
       "move_image_": "not_here",
-      "move_part_intervals_": [],
+      "move_part_intervals_": [0],
       "start_up_frames_": 3,
       "active_frames_": 10,
       "end_lag_": 0,
       "has_invulnerability_": false,
-      "velocity_interval_frames_": [4],
+      "velocity_interval_frames_": [0, 4],
       "x_velocity_changes_": [0.0, 0.0],
       "y_velocity_changes_": [0.7, 0.5]
     },
     "defense": {
       "roll_left": {
         "move_image_": "not_here",
-        "move_part_intervals_": [],
+        "move_part_intervals_": [0],
         "start_up_frames_": 3,
         "active_frames_": 10,
-        "end_lag_": 4,
+        "end_lag_": 10,
         "has_invulnerability_": true,
-        "velocity_interval_frames_": [],
-        "x_velocity_changes_": [-0.5],
-        "y_velocity_changes_": [0.0]
+        "velocity_interval_frames_": [0, 5],
+        "x_velocity_changes_": [-10.0, 10.0],
+        "y_velocity_changes_": [0.0, 0.0]
       },
       "roll_right": {
         "move_image_": "not_here",
-        "move_part_intervals_": [],
+        "move_part_intervals_": [0],
         "start_up_frames_": 3,
         "active_frames_": 10,
-        "end_lag_": 4,
+        "end_lag_": 10,
         "has_invulnerability_": true,
-        "velocity_interval_frames_": [],
-        "x_velocity_changes_": [0.5],
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [10.0],
         "y_velocity_changes_": [0.0]
       },
       "spot_dodge": {
         "move_image_": "not_here",
-        "move_part_intervals_": [],
+        "move_part_intervals_": [0],
         "start_up_frames_": 3,
         "active_frames_": 10,
-        "end_lag_": 5,
+        "end_lag_": 10,
         "has_invulnerability_": true,
-        "velocity_interval_frames_": [],
+        "velocity_interval_frames_": [0],
         "x_velocity_changes_": [0.0],
         "y_velocity_changes_": [0.0]
       },
       "air_dodge": {
         "move_image_": "not_here",
-        "move_part_intervals_": [],
+        "move_part_intervals_": [0],
         "start_up_frames_": 3,
         "active_frames_": 10,
-        "end_lag_": 4,
+        "end_lag_": 10,
         "has_invulnerability_": true,
-        "velocity_interval_frames_": [],
+        "velocity_interval_frames_": [0],
         "x_velocity_changes_": [0.0],
         "y_velocity_changes_": [0.0]
       },
       "shield": {
         "move_image_": "not_here",
-        "move_part_intervals_": [],
+        "move_part_intervals_": [0],
         "start_up_frames_": 3,
-        "active_frames_": 5,
+        "active_frames_": 15,
         "end_lag_": 3,
         "shield_hit_box_data_": {
-          "m_radius": 0.5,
+          "m_radius": 30.0,
           "x": 0.0,
-          "y": 0.0
+          "y": -10.0,
+          "r": 0,
+          "g": 1,
+          "b": 0
         }
+      }
+    },
+    "grounded_normals": {
+      "jab": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 2,
+        "active_frames_": 4,
+        "end_lag_": 2,
+        "hit_boxes_data_": [{
+          "m_radius": 5.0,
+          "x": 10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+        },
+          {
+          "m_radius": 5.0,
+          "x": -10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 3.0,
+        "knock_back_": 1.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "right_tilt": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 5,
+        "active_frames_": 10,
+        "end_lag_": 8,
+        "hit_boxes_data_": [{
+          "m_radius": 5.0,
+          "x": 10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+        },
+          {
+            "m_radius": 5.0,
+            "x": 20.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 0
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 8.0,
+        "knock_back_": 10.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "left_tilt": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 5,
+        "active_frames_": 10,
+        "end_lag_": 8,
+        "hit_boxes_data_": [{
+          "m_radius": 5.0,
+          "x": -10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+        },
+          {
+            "m_radius": 5.0,
+            "x": -20.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 0
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 8.0,
+        "knock_back_": 10.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "up_tilt": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 5,
+        "active_frames_": 10,
+        "end_lag_": 8,
+        "hit_boxes_data_": [{
+          "m_radius": 5.0,
+          "x": 5.0,
+          "y": -35.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+        },
+          {
+            "m_radius": 5.0,
+            "x": 0.0,
+            "y": -35.0,
+            "r": 1,
+            "g": 0,
+            "b": 0
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 8.0,
+        "knock_back_": 10.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "down_tilt": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 5,
+        "active_frames_": 10,
+        "end_lag_": 8,
+        "hit_boxes_data_": [{
+          "m_radius": 5.0,
+          "x": 9.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 0
+        },
+          {
+            "m_radius": 5.0,
+            "x": -9.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 0
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 8.0,
+        "knock_back_": 10.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "right_strong": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 15,
+        "active_frames_": 10,
+        "end_lag_": 15,
+        "hit_boxes_data_": [{
+          "m_radius": 8.0,
+          "x": 10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 1
+        },
+          {
+            "m_radius": 8.0,
+            "x": 20.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 1
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 20.0,
+        "knock_back_": 30.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "left_strong": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 15,
+        "active_frames_": 10,
+        "end_lag_": 15,
+        "hit_boxes_data_": [{
+          "m_radius": 8.0,
+          "x": -10.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 1
+        },
+          {
+            "m_radius": 8.0,
+            "x": -20.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 1
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 20.0,
+        "knock_back_": 30.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "up_strong": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 15,
+        "active_frames_": 10,
+        "end_lag_": 15,
+        "hit_boxes_data_": [{
+          "m_radius": 8.0,
+          "x": -5.0,
+          "y": -30.0,
+          "r": 1,
+          "g": 0,
+          "b": 1
+        },
+          {
+            "m_radius": 8.0,
+            "x": 5.0,
+            "y": -30.0,
+            "r": 1,
+            "g": 0,
+            "b": 1
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 20.0,
+        "knock_back_": 30.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
+      },
+      "down_strong": {
+        "move_image_": "not_implemented",
+        "move_part_intervals_": [0],
+        "start_up_frames_": 15,
+        "active_frames_": 10,
+        "end_lag_": 15,
+        "hit_boxes_data_": [{
+          "m_radius": 8.0,
+          "x": -15.0,
+          "y": 0.0,
+          "r": 1,
+          "g": 0,
+          "b": 1
+        },
+          {
+            "m_radius": 8.0,
+            "x": 15.0,
+            "y": 0.0,
+            "r": 1,
+            "g": 0,
+            "b": 1
+          }],
+        "is_hurt_box_": true,
+        "is_projectile_": false,
+        "damage_": 20.0,
+        "knock_back_": 30.0,
+        "velocity_interval_frames_": [0],
+        "x_velocity_changes_": [0.0],
+        "y_velocity_changes_": [0.0]
       }
     }
   },
@@ -86,19 +361,28 @@
   },
   "hurt_boxes_data": [
     {
-      "m_radius": 0.5,
+      "m_radius": 10.0,
       "x": 0.0,
-      "y": 0.0
+      "y": 0.0,
+      "r": 0,
+      "g": 0,
+      "b": 1
     },
     {
-      "m_radius": 0.5,
+      "m_radius": 10.0,
       "x": 0.0,
-      "y": -0.5
+      "y": -10.0,
+      "r": 0,
+      "g": 0,
+      "b": 1
     },
     {
-      "m_radius": 0.5,
+      "m_radius": 10.0,
       "x": 0.0,
-      "y": -1.0
+      "y": -20.0,
+      "r": 0,
+      "g": 0,
+      "b": 1
     }
   ]
 }
