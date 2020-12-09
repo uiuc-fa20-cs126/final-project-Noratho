@@ -53,9 +53,13 @@ namespace visualizer {
                 ci::vec2 center((circle->m_p.x + pos.x) * pixels_per_meter_factor,
                                 (2 * (circle->m_p.y) + pos.y) * pixels_per_meter_factor);
 
-                ci::gl::color( ci::Color( 0, 0, 1 ) );;
+                std::vector<int>* rgb = (std::vector<int>*)fixture->GetUserData();
 
-                ci::gl::drawSolidCircle(center, 10);
+                ci::gl::color( ci::Color( rgb->at(0),
+                                          rgb->at(1),
+                                          rgb->at(2) ) );;
+
+                ci::gl::drawSolidCircle(center, circle->m_radius * pixels_per_meter_factor);
 
             }
         }

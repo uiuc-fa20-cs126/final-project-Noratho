@@ -130,6 +130,12 @@ void Player::CreateBody(b2World &world, float pixel_per_meter_factor, std::vecto
         fixture_circle_def.friction = 0.3f;
         fixture_circle_def.restitution = 0.0f;
 
+        auto *rgb = new std::vector<int>;
+        rgb->push_back(hurt_box.r);
+        rgb->push_back(hurt_box.g);
+        rgb->push_back(hurt_box.b);
+        fixture_circle_def.userData = rgb;
+
         body->CreateFixture(&fixture_circle_def);
     }
 }
@@ -147,6 +153,21 @@ std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_s
         input = full_input_string;
     } else {
         input = full_input_string.substr(full_input_string.size() - 2);
+    }
+
+    //Stops inputs like "j2" from going in and crashing system
+    if (input.size() > 1 ){
+        std::string commands = "jk2";
+        for (char let1 : commands) {
+            if (input[0] == let1) {
+                for (char let2 : commands) {
+                    if (input[1] == let2) {
+                        input = "";
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     //Reverse it if its in the wrong order
@@ -184,8 +205,13 @@ void Player::ParseInput() {
     //switch statements don't work for strings in c++ without
     // converting to ascii or using an enum which basically do the same thing in this case
     if (complete_input == "2") {
-        auto move = character_data_.GetMoveSet().GetDefense().GetShield();
-        handler_->InitiateMove(move);
+        if (this->is_in_air_) {
+            auto move = character_data_.GetMoveSet().GetDefense().GetAirDodge();
+            handler_->InitiateMove(move);
+        } else {
+            auto move = character_data_.GetMoveSet().GetDefense().GetShield();
+            handler_->InitiateMove(move);
+        }
 
     } else if (complete_input == "d") {
         b2Vec2 run_right = b2Vec2(10 * character_data_.GetRunSpeed(),
