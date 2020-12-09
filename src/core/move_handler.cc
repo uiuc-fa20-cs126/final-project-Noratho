@@ -85,6 +85,26 @@ void MoveHandler::NextFrame() {
     }
 }
 
+
+void MoveHandler::ChangePlayerColor(int r, int g, int b) {
+    auto *rgb = new std::vector<int>;
+    rgb->push_back(r);
+    rgb->push_back(g);
+    rgb->push_back(b);
+
+    for (b2Fixture *fixture = player_body_->GetFixtureList();
+         fixture; fixture = fixture->GetNext()) {
+        fixture->SetUserData(rgb);
+    }
+}
+
+void MoveHandler::RemoveAllFixtures() {
+    for (auto fixture : fixtures_) {
+        player_body_->DestroyFixture(fixture);
+    }
+    fixtures_.clear();
+}
+
 bool MoveHandler::IsAttackInProgress() const {
     return is_attack_in_progress_;
 }
