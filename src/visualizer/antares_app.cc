@@ -15,7 +15,7 @@ const std::string AntaresApp::kMapPath = "";
 const ci::Color AntaresApp::kTextColor = ci::Color::black();
 const ci::Color8u AntaresApp::kBackgroundColor(255, 246, 148);
 
-const int AntaresApp::kFrameInputDuration = 10;
+const int AntaresApp::kFrameInputDuration = 5;
 
 antares::visualizer::AntaresApp::AntaresApp() {
     ci::app::setWindowSize((int) kWindowLength, (int) kWindowHeight);
@@ -28,9 +28,8 @@ void antares::visualizer::AntaresApp::draw() {
 }
 
 void antares::visualizer::AntaresApp::update() {
-    if (input_hold_ != 0) {
-        std::cout << input_hold_ << std::endl;
-    }
+
+    world_model_->UpdateAirStatus();
 
     if (input_hold_ == 1) {
         world_model_->player_->ParseInput();
@@ -38,13 +37,19 @@ void antares::visualizer::AntaresApp::update() {
     if (input_hold_ > 0) {
         input_hold_--;
     }
+
+    if (world_model_->player_->GetHandler()->IsAttackInProgress()) {
+        world_model_->player_->GetHandler()->NextFrame();
+    }
+
+    UpdateInputTimers();
+
     cinder_map_.UpdateState();
 }
 
 void antares::visualizer::AntaresApp::setup() {
     cinder_map_.world_model_.GenerateWorld();
-    cinder_map_.world_model_.player_->GeneratePlayer(kPlayerJsonPath);
-    std::cout << "ok";
+    world_model_ = &cinder_map_.world_model_;
 }
 
 void antares::visualizer::AntaresApp::keyDown(ci::app::KeyEvent event) {

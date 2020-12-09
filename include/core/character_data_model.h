@@ -245,12 +245,8 @@ namespace models {
     struct MoveSet {
 
     public:
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(MoveSet, jump, defense);
-        //  grounded_normals, air_attacks, specials
-
-        MobilityMove &GetJump() {
-            return jump;
-        }
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(MoveSet, jump, defense, grounded_normals);
+        //  air_attacks, specials
 
         Defense &GetDefense() {
             return defense;

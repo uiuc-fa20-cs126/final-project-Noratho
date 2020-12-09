@@ -8,9 +8,6 @@ namespace antares {
 
 namespace visualizer {
 
-
-
-
     visualizer::CinderMap::CinderMap() {
 
     }

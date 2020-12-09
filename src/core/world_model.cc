@@ -55,6 +55,8 @@ void World::UpdateAirStatus() {
 void World::UpdatePlayer() {
     player_->SetPosition(player_->GetPlayerBody()->GetPosition());
     UpdateAirStatus();
+    player_->SetIsInvulnerable(player_->GetHandler()->IsInvulnerable());
+    player_->SetIsShielding(player_->GetHandler()->IsShielding());
 }
 
 
