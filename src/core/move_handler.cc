@@ -159,25 +159,52 @@ void MoveHandler::NextFrame() {
 
     if (current_startup_ != total_start_up_) {
         current_startup_++;
-        return;
-    }
-    if (current_active_frame_ != total_active_frames_) {
+
+    } else if(current_active_frame_ != total_active_frames_) {
         if (type_ == MoveType::AttackType) {
-            Attack *attack = attack_;
+            Attack attack = attack_;
+
+            VelocityChange(attack);
+            if (attack.move_part_intervals_.size() > move_part_interval_index_) {
+                if (current_active_frame_ == attack.move_part_intervals_[move_part_interval_index_]){
+                    RemoveAllFixtures();
+                    GenerateFixtures(attack);
+                    move_part_interval_index_++;
+                }
+            }
 
         } else if (type_ == MoveType::MobilityType) {
-            MobilityMove *move = mobility_;
+            is_invulnerable_ = true;
+            MobilityMove mobility = mobility_;
+
+            VelocityChange(mobility);
 
         } else if (type_ == MoveType::ShieldType) {
-            Shield *move = shield_;
+            is_shielding_ = true;
+            Shield shield = shield_;
 
+            if (shield.move_part_intervals_.size() > move_part_interval_index_) {
+                if (current_active_frame_ == shield.move_part_intervals_[move_part_interval_index_]){
+                    RemoveAllFixtures();
+                    GenerateFixtures(shield);
+                    move_part_interval_index_++;
+                }
+            }
         }
         current_active_frame_++;
-    }
 
-    if (current_end_lag_ != total_end_lag_) {
+    } else if (current_end_lag_ != total_end_lag_) {
+        is_shielding_ = false;
+        is_invulnerable_ = false;
         current_end_lag_++;
-        return;
+
+    } else {
+        RemoveAllFixtures();
+        is_attack_in_progress_ = false;
+        b2Vec2 no_velocity(0, 0);
+        player_body_->SetLinearVelocity(no_velocity);
+
+        ChangePlayerColor(0, 0, 1);
     }
 }
 
