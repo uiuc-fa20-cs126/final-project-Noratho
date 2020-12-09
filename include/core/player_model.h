@@ -83,7 +83,7 @@ private:
     bool is_facing_right_;
     bool is_in_air_;
     bool is_shielding_;
-    bool is_invulnerable;
+    bool is_invulnerable_;
 
 };
 
