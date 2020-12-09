@@ -243,7 +243,7 @@ void Player::ParseInput() {
                 handler_->InitiateMove(move);
             }
         } else {
-            if (interval > 3) {
+            if (interval >= 2) {
                 auto move = move_set.GetGroundedNormals().GetInputMapTilts().at(complete_input);
                 handler_->InitiateMove(move);
             } else {
