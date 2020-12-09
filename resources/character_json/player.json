@@ -2,7 +2,7 @@
   "character_name": "Bob",
   "fall_speed_multiplier": 0.6,
   "fast_fall_speed_multiplier": 0.8,
-  "run_speed": 0.5,
+  "run_speed": 5.0,
   "jump_height": 400.0,
 
   "move_set": {

@@ -97,6 +97,7 @@ void Player::DeserializeJson(const std::string& json_path) {
     std::ifstream file(json_path);
     nlohmann::json json;
     file >> json;
+    //Macro call
     this->character_data_ = json;
 }
 
@@ -113,9 +114,11 @@ void Player::CreateBody(b2World &world, float pixel_per_meter_factor, std::vecto
                           window_height / 2.0f * meter_per_pixel_factor);
 
     b2Body* body = world.CreateBody(&body_def);
+
     this->player_body_ = body;
     this->handler_->SetPlayerBody(body);
 
+    //Iterate through hurt boxes
     for (const auto& hurt_box : character_data_.GetHurtBoxesData()) {
         b2Vec2 pos(hurt_box.x  * meter_per_pixel_factor,
                    hurt_box.y  * meter_per_pixel_factor);
@@ -130,6 +133,7 @@ void Player::CreateBody(b2World &world, float pixel_per_meter_factor, std::vecto
         fixture_circle_def.friction = 0.3f;
         fixture_circle_def.restitution = 0.0f;
 
+        //Color setter
         auto *rgb = new std::vector<int>;
         rgb->push_back(hurt_box.r);
         rgb->push_back(hurt_box.g);
@@ -146,8 +150,10 @@ std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_s
     std::tuple<std::string, int> clean_input;
     int input_interval;
     std::string full_input_string;
-
+    //creates a string from a list
     for (const auto &piece : input_string) full_input_string += piece;
+
+    //if the input is 1 input
     std::string input;
     if (full_input_string.size() <= 1) {
         input = full_input_string;
@@ -178,6 +184,7 @@ std::tuple<std::string, int> Player::CleanInput(std::vector<std::string> input_s
         }
     }
 
+    //set interval between key presses
     if (input.size() > 1) {
         int first = input_map.find(std::string(1, input[0]))->second;
         int second = input_map.find(std::string(1, input[1]))->second;
@@ -204,6 +211,8 @@ void Player::ParseInput() {
 
     //switch statements don't work for strings in c++ without
     // converting to ascii or using an enum which basically do the same thing in this case
+
+    //shielding
     if (complete_input == "2") {
         if (this->is_in_air_) {
             auto move = character_data_.GetMoveSet().GetDefense().GetAirDodge();
@@ -213,26 +222,30 @@ void Player::ParseInput() {
             handler_->InitiateMove(move);
         }
 
+    //moving right
     } else if (complete_input == "d") {
-        b2Vec2 run_right = b2Vec2(10 * character_data_.GetRunSpeed(),
+        b2Vec2 run_right = b2Vec2(character_data_.GetRunSpeed(),
                                   player_body_->GetLinearVelocity().y);
         player_body_->SetLinearVelocity(run_right);
         if (!this->is_in_air_) {
             this->is_facing_right_ = true;
         }
 
+    //moving left
     } else if (complete_input == "a") {
-        b2Vec2 run_right = b2Vec2(-10 * character_data_.GetRunSpeed(),
+        b2Vec2 run_right = b2Vec2(-character_data_.GetRunSpeed(),
                                   player_body_->GetLinearVelocity().y);
         player_body_->SetLinearVelocity(run_right);
         if (!this->is_in_air_) {
             this->is_facing_right_ = false;
         }
 
+    //defense moves
     } else if (command == "2") {
         auto move = move_set.GetDefense().GetInputMap().at(complete_input);
         handler_->InitiateMove(move);
 
+    //normals
     } else if (command == "j") {
         if (this->is_in_air_) {
             if (this->is_facing_right_) {
@@ -243,15 +256,18 @@ void Player::ParseInput() {
                 handler_->InitiateMove(move);
             }
         } else {
+            //tilts
             if (interval >= 2) {
                 auto move = move_set.GetGroundedNormals().GetInputMapTilts().at(complete_input);
                 handler_->InitiateMove(move);
+            //strong
             } else {
                 auto move = move_set.GetGroundedNormals().GetInputMapStrong().at(complete_input);
                 handler_->InitiateMove(move);
             }
         }
 
+    //specials
     } else if (command == "k") {
         auto move = move_set.GetSpecials().GetInputMap().at(complete_input);
         handler_->InitiateMove(move);
@@ -270,28 +286,12 @@ const b2Vec2 &Player::GetPosition() const {
     return position_;
 }
 
-bool Player::IsFacingRight() const {
-    return is_facing_right_;
-}
-
 bool Player::IsInAir() const {
     return is_in_air_;
 }
 
-bool Player::IsShielding() const {
-    return is_shielding_;
-}
-
 const CharacterData &Player::GetCharacterData() const {
     return character_data_;
-}
-
-bool Player::IsInvulnerable() const {
-    return is_invulnerable_;
-}
-
-void Player::SetIsFacingRight(bool isFacingRight) {
-    is_facing_right_ = isFacingRight;
 }
 
 void Player::SetIsInAir(bool isInAir) {
