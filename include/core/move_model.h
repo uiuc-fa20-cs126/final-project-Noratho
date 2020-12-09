@@ -18,11 +18,14 @@ namespace models {
 //the actual class
 struct b2CircleShapeDataHolder {
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(b2CircleShapeDataHolder, m_radius, x, y);
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(b2CircleShapeDataHolder, m_radius, x, y, r, g, b);
 
     float m_radius;
     float x;
     float y;
+    int r;
+    int g;
+    int b;
 };
 
 class Move {
