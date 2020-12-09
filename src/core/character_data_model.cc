@@ -7,33 +7,33 @@ namespace antares {
 
 namespace models {
 
-    CharacterData::CharacterData() {
+CharacterData::CharacterData() {
 
-    }
+}
 
-    const std::vector<b2CircleShapeDataHolder> &CharacterData::GetHurtBoxesData() const {
-        return hurt_boxes_data;
-    }
+const std::vector<b2CircleShapeDataHolder> &CharacterData::GetHurtBoxesData() const {
+    return hurt_boxes_data;
+}
 
-    float CharacterData::GetFallSpeedMultiplier() const {
-        return fall_speed_multiplier;
-    }
+float CharacterData::GetFallSpeedMultiplier() const {
+    return fall_speed_multiplier;
+}
 
-    float CharacterData::GetFastFallSpeedMultiplier() const {
-        return fast_fall_speed_multiplier;
-    }
+float CharacterData::GetFastFallSpeedMultiplier() const {
+    return fast_fall_speed_multiplier;
+}
 
-    float CharacterData::GetRunSpeed() const {
-        return run_speed;
-    }
+float CharacterData::GetRunSpeed() const {
+    return run_speed;
+}
 
-    float CharacterData::GetJumpHeight() const {
-        return jump_height;
-    }
+float CharacterData::GetJumpHeight() const {
+    return jump_height;
+}
 
-    MoveSet &CharacterData::GetMoveSet() {
-        return this->move_set;
-    }
+MoveSet &CharacterData::GetMoveSet() {
+    return this->move_set;
+}
 
 } //namespace models
 
