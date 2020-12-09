@@ -10,14 +10,19 @@ namespace antares {
 
 namespace visualizer {
 
-class CinderMap {
-
+/**
+ * CinderWorld Class
+ * Used render and make all of the visuals for the game
+*/
+class CinderWorld {
 
 public:
 
-    CinderMap();
+    /**default constructor*/
+    CinderWorld();
 
-    CinderMap(const models::World &world);
+    /**copy constructor*/
+    CinderWorld(const models::World &world);
 
     /**
     * Updates the state for of the container model
@@ -29,14 +34,7 @@ public:
     */
     void Render() const;
 
-    /**
-    * Resets the state of the model
-     * Not implemented :(
-    */
-    void Reset();
-
-    /** container model for the particles */
-
+    /** container model for the game */
     models::World world_model_;
 
 };

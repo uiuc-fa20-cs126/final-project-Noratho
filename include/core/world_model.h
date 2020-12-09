@@ -69,7 +69,6 @@ namespace models {
         /**The path to the character json*/
         static const std::string kPlayerJsonPath;
 
-
     };
 
 } //namespace models

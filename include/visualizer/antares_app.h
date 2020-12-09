@@ -35,7 +35,7 @@ namespace visualizer {
 
     private:
 
-        antares::visualizer::CinderMap cinder_map_;
+        antares::visualizer::CinderWorld cinder_map_;
 
         antares::models::World *world_model_;
 
