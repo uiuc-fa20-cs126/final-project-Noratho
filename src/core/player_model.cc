@@ -286,7 +286,7 @@ const CharacterData &Player::GetCharacterData() const {
 }
 
 bool Player::IsInvulnerable() const {
-    return is_invulnerable;
+    return is_invulnerable_;
 }
 
 void Player::SetIsFacingRight(bool isFacingRight) {
@@ -302,7 +302,7 @@ void Player::SetIsShielding(bool isShielding) {
 }
 
 void Player::SetIsInvulnerable(bool isInvulnerable) {
-    is_invulnerable = isInvulnerable;
+    is_invulnerable_ = isInvulnerable;
 }
 
 void Player::SetPosition(const b2Vec2 &position) {
