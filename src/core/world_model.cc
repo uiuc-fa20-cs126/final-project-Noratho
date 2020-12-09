@@ -41,7 +41,6 @@ void World::GenerateWorld() {
 
 void World::UpdateAirStatus() {
     float altitude = player_->GetPosition().y * kPixelsPerMeterFactor;
-    float altitude2 = player_->GetPosition().x * kPixelsPerMeterFactor;
     float height = map_->GetKGroundHeight();
 
     if (altitude < kWindowHeight - height - 21.0f) {
