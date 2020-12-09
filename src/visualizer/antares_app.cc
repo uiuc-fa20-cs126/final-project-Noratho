@@ -49,50 +49,55 @@ void antares::visualizer::AntaresApp::setup() {
 
 void antares::visualizer::AntaresApp::keyDown(ci::app::KeyEvent event) {
     AppBase::keyDown(event);
+    input_hold_ = 3;
+
+    auto &timers = world_model_->player_->input_timers_;
+    auto &player = world_model_->player_;
+    b2Vec2 jump_height(0, -player->GetCharacterData().GetJumpHeight());
+
+    if (player->GetHandler()->IsAttackInProgress()) {
+        return;
+    }
 
     //Repeat inputs are read every 5-6 frames
     switch (event.getCode()) {
         // WASD are directional keys
         case ci::app::KeyEvent::KEY_w:
-            world_model_.player_->input_list_.emplace_back("w");
-            world_model_.player_->input_timers_["w"] = 5;
+            RemoveDuplicatesHelper("w");
+            timers["w"] = kFrameInputDuration;
             break;
         case ci::app::KeyEvent::KEY_a:
-            world_model_.player_->input_list_.emplace_back("a");
-            world_model_.player_->input_timers_["a"] = 5;
+            RemoveDuplicatesHelper("a");
+            timers["a"] = kFrameInputDuration;
             break;
         case ci::app::KeyEvent::KEY_s:
-            world_model_.player_->input_list_.emplace_back("s");
-            world_model_.player_->input_timers_["s"] = 5;
+            RemoveDuplicatesHelper("s");
+            timers["s"] = kFrameInputDuration;
             break;
         case ci::app::KeyEvent::KEY_d:
-            world_model_.player_->input_list_.emplace_back("d");
-            world_model_.player_->input_timers_["d"] = 5;
+            RemoveDuplicatesHelper("d");
+            timers["d"] = kFrameInputDuration;
             break;
-        // Space is jump
+        // space is jump
         case ci::app::KeyEvent::KEY_SPACE:
-            world_model_.player_->input_list_.emplace_back("space");
-            world_model_.player_->input_timers_["space"] = 5;
+            if (!player->IsInAir()) {
+                player->GetPlayerBody()->ApplyForceToCenter(jump_height);
+            }
             break;
         // j is normal attacks ie tilts, air attacks and strong attacks.
         case ci::app::KeyEvent::KEY_j:
-            world_model_.player_->input_list_.emplace_back("j");
-            world_model_.player_->input_timers_["j"] = 5;
+            RemoveDuplicatesHelper("j");
+            timers["j"] = kFrameInputDuration;
             break;
         // k is for specials
         case ci::app::KeyEvent::KEY_k:
-            world_model_.player_->input_list_.emplace_back("k");
-            world_model_.player_->input_timers_["k"] = 5;
+            RemoveDuplicatesHelper("k");
+            timers["k"] = kFrameInputDuration;
             break;
-        // l is for throws
-        case ci::app::KeyEvent::KEY_l:
-            world_model_.player_->input_list_.emplace_back("l");
-            world_model_.player_->input_timers_["l"] = 5;
-            break;
-        // : is for shields
+        // shift is for shields denoted by 2
         case ci::app::KeyEvent::KEY_LSHIFT:
-            world_model_.player_->input_list_.emplace_back("shift");
-            world_model_.player_->input_timers_["shift"] = 5;
+            RemoveDuplicatesHelper("2");
+            timers["2"] = kFrameInputDuration;
             break;
         case ci::app::KeyEvent::KEY_ESCAPE:
             break;
