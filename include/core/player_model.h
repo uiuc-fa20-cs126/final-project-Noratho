@@ -39,6 +39,7 @@ public:
     std::vector<std::string> input_list_;
     std::map<std::string, int> input_timers_;
 
+    /**Getters and Setters*/
     b2Body *GetPlayerBody() const;
 
     const b2Vec2 &GetPosition() const;

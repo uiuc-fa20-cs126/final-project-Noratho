@@ -4,23 +4,11 @@
 
 #include "core/move_model.h"
 
-#include <utility>
-
 namespace antares {
 
 namespace models {
 
-
-Move::Move(std::vector<std::string> inputs) {
-
-}
-
 Move::Move() {
-
-}
-
-
-Attack::Attack(std::vector<std::string> inputs) : Move(inputs){
 
 }
 
@@ -28,24 +16,16 @@ Attack::Attack() {
 
 }
 
+Shield::Shield() {
+
+}
+
+MobilityMove::MobilityMove() {
+
+}
+
 const std::vector<std::vector<b2CircleShapeDataHolder>> &Attack::GetHitBoxesData() const {
     return hit_boxes_data_;
-}
-
-bool Attack::IsHurtBox() const {
-    return is_hurt_box_;
-}
-
-bool Attack::IsProjectile() const {
-    return is_projectile_;
-}
-
-float Attack::GetDamage() const {
-    return damage_;
-}
-
-float Attack::GetKnockBack() const {
-    return knock_back_;
 }
 
 const std::vector<int> &Attack::GetVelocityIntervalFrames() const {
@@ -60,18 +40,6 @@ const std::vector<float> &Attack::GetYVelocityChanges() const {
     return y_velocity_changes_;
 }
 
-MobilityMove::MobilityMove(std::vector<std::string> inputs) : Move(inputs){
-
-}
-
-MobilityMove::MobilityMove() {
-
-}
-
-bool MobilityMove::HasInvulnerability() const {
-    return has_invulnerability_;
-}
-
 const std::vector<int> &MobilityMove::GetVelocityIntervalFrames() const {
     return velocity_interval_frames_;
 }
@@ -82,14 +50,6 @@ const std::vector<float> &MobilityMove::GetXVelocityChanges() const {
 
 const std::vector<float> &MobilityMove::GetYVelocityChanges() const {
     return y_velocity_changes_;
-}
-
-Shield::Shield(std::vector<std::string> inputs) : Move(inputs) {
-
-}
-
-Shield::Shield() {
-
 }
 
 const b2CircleShapeDataHolder &Shield::GetShieldHitBoxData() const {
