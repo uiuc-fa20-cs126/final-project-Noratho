@@ -60,6 +60,101 @@ void MoveHandler::InitiateMove(Shield &shield) {
     move_part_interval_index_ = 0;
 }
 
+
+void MoveHandler::GenerateFixtures(Attack &attack) {
+
+    float meter_per_pixel_factor = (1.0f / kPixelPerMeterFactor);
+
+   for (auto data : attack.GetHitBoxesData()) {
+       b2Vec2 pos(data.x  * meter_per_pixel_factor,
+                  data.y  * meter_per_pixel_factor);
+
+       b2CircleShape circle;
+       circle.m_p = pos;
+       circle.m_radius = data.m_radius * meter_per_pixel_factor;
+
+       b2FixtureDef fixture_circle_def;
+       fixture_circle_def.shape = &circle;
+       fixture_circle_def.density = 0.0f;
+       fixture_circle_def.friction = 0.0f;
+
+       //Set Hitbox Color
+       auto *rgb = new std::vector<int>;
+       rgb->push_back(data.r);
+       rgb->push_back(data.g);
+       rgb->push_back(data.b);
+       fixture_circle_def.userData = rgb;
+
+       //Set Collision filter
+       fixture_circle_def.filter.maskBits = 0x0000;
+
+       player_body_->CreateFixture(&fixture_circle_def);
+       fixtures_.push_back(player_body_->GetFixtureList());
+   }
+
+
+}
+
+void MoveHandler::VelocityChange(Attack &attack) {
+
+    if (attack.GetVelocityIntervalFrames().size() > velocity_interval_index_) {
+        if (current_active_frame_ ==
+            attack.GetVelocityIntervalFrames()[velocity_interval_index_]) {
+
+            b2Vec2 velocity(attack.GetXVelocityChanges()[velocity_interval_index_],
+                            attack.GetYVelocityChanges()[velocity_interval_index_]);
+            player_body_->SetLinearVelocity(velocity);
+            velocity_interval_index_++;
+        }
+    }
+}
+
+void MoveHandler::VelocityChange(MobilityMove &mobility) {
+
+    ChangePlayerColor(1, 1, 1);
+    if (mobility.GetVelocityIntervalFrames().size() > velocity_interval_index_) {
+        if (current_active_frame_ ==
+            mobility.GetVelocityIntervalFrames()[velocity_interval_index_]) {
+
+            b2Vec2 velocity(mobility.GetXVelocityChanges()[velocity_interval_index_],
+                            mobility.GetYVelocityChanges()[velocity_interval_index_]);
+            player_body_->SetLinearVelocity(velocity);
+            velocity_interval_index_++;
+        }
+    }
+}
+
+void MoveHandler::GenerateFixtures(Shield &shield) {
+
+    auto data = shield.GetShieldHitBoxData();
+    float meter_per_pixel_factor = (1.0f / kPixelPerMeterFactor);
+
+    b2Vec2 pos(data.x  * meter_per_pixel_factor,
+                   data.y  * meter_per_pixel_factor);
+
+    b2CircleShape circle;
+    circle.m_p = pos;
+    circle.m_radius = data.m_radius * meter_per_pixel_factor;
+
+    b2FixtureDef fixture_circle_def;
+    fixture_circle_def.shape = &circle;
+    fixture_circle_def.density = 0.0f;
+    fixture_circle_def.friction = 0.0f;
+
+    //Set Hitbox Color
+    auto *rgb = new std::vector<int>;
+    rgb->push_back(data.r);
+    rgb->push_back(data.g);
+    rgb->push_back(data.b);
+    fixture_circle_def.userData = rgb;
+
+    //Set Collision filter
+    fixture_circle_def.filter.maskBits = 0x0000;
+
+    player_body_->CreateFixture(&fixture_circle_def);
+    fixtures_.push_back(player_body_->GetFixtureList());
+    }
+
 void MoveHandler::NextFrame() {
 
 

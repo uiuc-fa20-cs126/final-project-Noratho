@@ -16,7 +16,6 @@ namespace models {
         ShieldType,
     };
 
-
     class MoveHandler {
 
     public:
@@ -31,11 +30,17 @@ namespace models {
 
         void GenerateFixtures(Attack& attack);
 
-        void InitiateMove(MobilityMove& move);
+        void VelocityChange(Attack& attack);
 
-        void InitiateMove(Shield& move);
+        void VelocityChange(MobilityMove& mobility);
+
+        void GenerateFixtures(Shield& shield);
 
         void NextFrame();
+
+        void RemoveAllFixtures();
+
+        void ChangePlayerColor(int r, int g, int b);
 
         bool IsAttackInProgress() const;
 
