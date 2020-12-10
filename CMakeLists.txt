@@ -63,8 +63,13 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES src/core/player_model.cc)
 list(APPEND CORE_SOURCE_FILES src/core/world_model.cc)
-list(APPEND CORE_SOURCE_FILES src/visualizer/antares_app.cc)
 list(APPEND CORE_SOURCE_FILES src/core/move_model.cc)
+list(APPEND CORE_SOURCE_FILES src/core/map_model.cc)
+list(APPEND CORE_SOURCE_FILES src/core/character_data_model.cc)
+list(APPEND CORE_SOURCE_FILES src/core/move_handler.cc)
+list(APPEND CORE_SOURCE_FILES src/visualizer/antares_app.cc)
+list(APPEND CORE_SOURCE_FILES src/visualizer/visualizer_helpers.cc)
+list(APPEND CORE_SOURCE_FILES src/visualizer/world_visualizer.cc)
 
 list(APPEND TEST_FILES tests/antares_tests.cc)
 

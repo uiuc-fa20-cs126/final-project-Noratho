@@ -2,38 +2,62 @@
 // Created by Nathaniel Smith on 11/12/20.
 //
 
+#include <fstream>
 #include "core/world_model.h"
 
 namespace antares {
 
 namespace models {
 
+const std::string World::kPlayerJsonPath =
+        "resources/character_json/player.json";
 
-Map::Map() {
+World::World() {
+
+    Map *empty_map = new Map();
+    Player *empty_player = new Player();
+
+    map_ = empty_map;
+    player_ = empty_player;
+}
+
+World::World(Map *map, Player *player) {
+    map_ = map;
+    player_ = player;
+}
+
+void World::UpdateState() {
+    world_.Step(kTimeStep, kVelocityIterations, kPositionIterations);
+    UpdatePlayer();
+}
+
+void World::GenerateWorld() {
+    std::vector<float> window_size{kWindowLength, kWindowHeight};
+
+    world_.SetGravity(kGravity);
+    map_->GenerateMap(world_, kPixelsPerMeterFactor, window_size);
+    player_->GeneratePlayer(world_, kPixelsPerMeterFactor, kPlayerJsonPath, window_size);
+}
+
+void World::UpdateAirStatus() {
+    float altitude = player_->GetPosition().y * kPixelsPerMeterFactor;
+    float height = map_->GetKGroundHeight();
+
+    if (altitude < kWindowHeight - height - 21.0f) {
+        player_->SetIsInAir(true);
+    } else {
+        player_->SetIsInAir(false);
+    }
 
 }
 
-Map::Map(std::string json_path) {
-
+void World::UpdatePlayer() {
+    player_->SetPosition(player_->GetPlayerBody()->GetPosition());
+    UpdateAirStatus();
+    player_->SetIsInvulnerable(player_->GetHandler()->IsInvulnerable());
+    player_->SetIsShielding(player_->GetHandler()->IsShielding());
 }
 
-void Map::DeserializeJson() {
-
-}
-
-void Map::GenerateWorld() {
-    CreateMap();
-}
-
-void Map::CreateMap() {
-
-    b2BodyDef ground_body_def;
-    ground_body_def.position.Set(0.0f, -10.0f);
-    ground_box_.SetAsBox(50.0f, 10.0f);
-    ground_body_ = world_.CreateBody(&ground_body_def);
-    ground_body_->CreateFixture(&ground_box_, 0.0f);
-
-}
 
 } //namespace models
 
