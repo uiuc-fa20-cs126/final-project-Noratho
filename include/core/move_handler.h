@@ -51,6 +51,23 @@ namespace models {
         */
         void InitiateMove(Shield& shield);
 
+        /**Method that handles the next frame and is called in the update*/
+        void NextFrame();
+
+        /**Getters and setters*/
+        bool IsAttackInProgress() const;
+
+        MoveType GetType() const;
+
+        void SetPlayerBody(b2Body *playerBody);
+
+        bool IsInvulnerable() const;
+
+        bool IsShielding() const;
+
+
+    private:
+
         /**Resets the state of the iterated handler values*/
         void ResetHandler();
 
@@ -80,28 +97,11 @@ namespace models {
         */
         void GenerateFixtures(Shield& shield);
 
-        /**Method that handles the next frame and is called in the update*/
-        void NextFrame();
-
         /**Method that removes all of the fixtures created by the handler*/
         void RemoveAllFixtures();
 
         /**Method that changes the players color based on the rgb values*/
         void ChangePlayerColor(int r, int g, int b);
-
-        /**Getters and setters*/
-        bool IsAttackInProgress() const;
-
-        MoveType GetType() const;
-
-        void SetPlayerBody(b2Body *playerBody);
-
-        bool IsInvulnerable() const;
-
-        bool IsShielding() const;
-
-
-    private:
 
         /**Pixel to Meter conversion factor*/
         const float kPixelPerMeterFactor = 50;
