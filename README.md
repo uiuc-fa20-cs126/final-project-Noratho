@@ -1,3 +1,5 @@
-This game is called Geltin
+This game is called Geltin and is a demo for the movement of a platform fighting game.
 
-This game is a demo for the movement of a platform fighting game. No setup is required aside from pressing the run button and maybe making the working directory for the run: final-project-Noratho if it doesn't do it already. The game lacks hitbox collision and enemies but uses the nlohmann JSON library for character data storage and JSON deserialization via the usage of the new macros added in the Summer of 2020. It also uses Box2D for collisions and physic and cinder for the game loop logic. It has a frame-sensitive input system that can do up to 2 combo inputs in the form of a direction and a command. 
+The main thing required for the setup is a C++ Cinder directory with Box2D and the nlohmann JSON library. 
+
+The game lacks hitbox collision and enemies but uses the nlohmann JSON library for character data storage and JSON deserialization via the usage of the new macros added in the Summer of 2020. It also uses Box2D for collisions and physic and cinder for the game loop logic. It has a frame-sensitive input system that can do up to 2 combo inputs in the form of a direction and a command. 
