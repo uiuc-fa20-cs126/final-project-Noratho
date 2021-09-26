@@ -12,5 +12,7 @@ The game lacks hitbox collision and enemies but uses the nlohmann JSON library f
 
 The game stores its character moves in a json file that stores the data for the hitbox it creates as well as the changes in velocity required to do some movement with the move. You can edit it to mess around with whats possible.
 
+The input keys are: WASD for movement, shift for shielding(green), shift + movement does a roll(white), j for normal attacks(red), and k for special attacks(magenta). Both normal and special attacks can be combined with movement directions to do differen things. If you press normal and a direction with 2 frams it does a directional normal. If you press normal and a direction at the same time it does a storng normal.
+
 Here is a link to a demo: https://youtu.be/bMsdSGIfJBw
 
